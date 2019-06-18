@@ -1,0 +1,38 @@
+// *****************************************************************************
+// Server.js - This file is the initial starting point for the Node/Express server.
+//
+// ******************************************************************************
+// *** Dependencies and inits
+// =============================================================
+
+// Sets up the Express App
+// =============================================================
+var express = require("express");
+var app = express();
+var PORT = process.env.PORT || 8080;  // Define the port
+
+// Require the database models for syncing
+var db = require("./app/models");
+
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Static directory
+app.use(express.static("public"));
+
+// Routes
+// =============================================================
+require("./app/routes/customer_routes.js")(app);
+require("./routes/htmlRoutes")(app);
+
+// Syncing our sequelize models and then starting our Express app
+// =============================================================
+db.sequelize.sync({ force: false }).then(function() {
+  app.listen(PORT, function(err) {
+    if (!err) 
+       console.log("\n\n\n\n\n\n\n\nInventoryPro Customer Order listening on PORT " + PORT);
+  });
+  }).catch(function(err){
+    console.log(err,"\n\n\n\n\n\n\n\n***ERROR*** Database did not sync correctly");
+});
