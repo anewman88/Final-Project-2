@@ -72,6 +72,9 @@ $(document).ready(function() {
   }
 
   // This function updates a product in our database
+  // ****NOTE*****  This updateProduct is not working.  Code needs to be added 
+  // to specify which field in the product object that needs to be updated. 
+
   function updateProduct(product) {
     $.ajax({
       method: "PUT",
