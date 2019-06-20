@@ -66,6 +66,7 @@ $(document).ready(function() {
     var updatedProduct = $(this).data("product");
     if (event.which === 13) {
       updatedProduct.name = $(this).children("input").val().trim();
+      // assign all the other values in product object here
       $(this).blur();
       updateProduct(updatedProduct);
     }
@@ -73,7 +74,7 @@ $(document).ready(function() {
 
   // This function updates a product in our database
   // ****NOTE*****  This updateProduct is not working.  Code needs to be added 
-  // to specify which field in the product object that needs to be updated. 
+  // to specify which field in the product object that needs to be updated in function above. 
 
   function updateProduct(product) {
     $.ajax({
