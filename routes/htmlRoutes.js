@@ -3,6 +3,13 @@
 // We need to include the path package to get the correct file path for our html
 // ===============================================================================
 var path = require("path");
+var DebugOn = true;
+
+// Import the list of friend entries
+// Using a js list of objects instead of a database 
+
+//shopping_list = require("../public/js/store_view.js").shopping_list;
+//if (DebugOn) console.log ("Loaded htmlRoutes.js - shopping_cart ", shopping_cart );
 
 
 // ===============================================================================

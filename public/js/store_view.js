@@ -1,8 +1,11 @@
+var shopping_cart = [];  // The shopping cart array
+// Export to API Route
+//module.exports.shopping_cart = shopping_cart;
+
 $(document).ready(function() {
 
     var DebugOn = true;   // debug flag
 
-    var shopping_cart = [];  // The shopping cart array
     var product_list = [];   // The product list array from db
     var $ProductList = $(".store-list");  // The product list for display 
 
@@ -62,9 +65,7 @@ $(document).ready(function() {
         
         // Add the product object to the row.
         $newInputRow.find("button.addtocart").data("product", product);
-        // couldn't get below to work. couldn't figure out syntax to get at the data
-        // in the row.  Attached it to the button in the row instead.
-    //  $newInputRow.data("product", product);  
+        $newInputRow.find("button.addtocart").data("id", product.id);
         
         return $newInputRow;
     }   // function createNewRow(product)
@@ -101,6 +102,7 @@ $(document).ready(function() {
     if (DebugOn) console.log ("In AddProduct() - InstockQuantity " + InstockQuantity);
 
     if (InstockQuantity >= AddQuantity) {  // add product to the shopping cart array
+        var TotalCost = parseFloat(CurProduct.unit_price) * AddQuantity;
         // Add the selected product to the shopping cart array
         var AddProduct = {
             id:  CurProduct.id,
@@ -109,6 +111,7 @@ $(document).ready(function() {
             category: CurProduct.category,
             unit_price:  CurProduct.unit_price, // should it be?  parseFloat($newPrice.val().trim()),
             quantity: AddQuantity,
+            total_cost: TotalCost,
             picture: CurProduct.picture,
         };
     
@@ -122,3 +125,4 @@ $(document).ready(function() {
     }  // function AddProductToCart(event)
 
 });  //  $(document).ready(function()
+

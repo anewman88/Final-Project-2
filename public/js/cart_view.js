@@ -1,31 +1,92 @@
 $(document).ready(function() {
 
-console.log ("In file cart_view.js");
+    var shopping_cart = [
+        {
+            id: 1,
+            category: "category 1",
+            name: "item 1",
+            description: "description 1",
+            picture: "picture 1",
+            unit_price: "1.00",
+            quantity: 1,
+            total_cost: "1.00",
+        },
+        {
+            id: 2,
+            category: "category 2",
+            name: "item 2",
+            description: "description 2",
+            picture: "picture 2",
+            unit_price: "2.00",
+            quantity: 1,
+            total_cost: "2.00",
+        },
+        {
+            id: 3,
+            category: "category 3",
+            name: "item 3",
+            description: "description 3",
+            picture: "picture 3",
+            unit_price: "3.00",
+            quantity: 1,
+            total_cost: "3.00"
+        },
+        {
+            id: 4,
+            category: "category 4",
+            name: "item 4",
+            description: "description 4",
+            picture: "picture 4",
+            unit_price: "4.00",
+            quantity: 2,
+            total_cost: "8.00",
+        },
+    ]
 
+console.log ("In file cart_view.js");
+console.log ("In file cart_view.js shopping_cart: ", shopping_cart);
     var DebugOn = true;   // debug flag
     var Working = false;
 
-if (Working)  {
-    // var shopping_cart = [];  // The shopping cart array
-    // var product_list = [];   // The product list array from db
-    // var $ProductList = $(".store-list");  // The product list for display 
+    var $CartList = $(".cart-list");  // The product list for display 
 
-    // Adding event listeners for adding a product to the shopping cart
-    $(document).on("click", "button.addtocart", AddProductToCart);
-  
-    //******************************************************************/
+    // Adding event listeners for deleting a product to the shopping cart
+    $(document).on("click", "button.delete", DeleteItemFromCart);
+
+        //******************************************************************/
     // Get the shopping cart and display it
     getShoppingCart();
     
     //******************************************************************/
-    // This function resets the products displayed with new products from the database
+    // This function gets the items from shopping_cart and displays them
     function initializeRows() {
-      $ProductList.empty();
+      $CartList.empty();
       var rowsToAdd = [];
-      for (var i = 0; i < product_list.length; i++) {
-        rowsToAdd.push(createNewRow(product_list[i]));
+      var CartTotal = 0.00;
+
+      for (var i = 0; i < shopping_cart.length; i++) {
+        rowsToAdd.push(createNewRow(shopping_cart[i]));
+        CartTotal += parseFloat(shopping_cart[i].total_cost);
       }
-      $ProductList.prepend(rowsToAdd);
+      
+      // Add last row showing cart total
+      var $CartTotalRow = $(
+        [
+            "<div class='row'>",
+                "<div class='col-8'>",
+                    "<a> </a>",
+                "</div>",
+                "<div class='col-3'>",
+                    "<a> Cart Total = $", CartTotal, "</a>",
+                "</div>",
+            "</div>"   
+        ].join("")
+        ); 
+        
+      rowsToAdd.push($CartTotalRow);
+
+      // display the shopping cart on page
+      $CartList.prepend(rowsToAdd);
     }  //  function initializeRows()
 
         
@@ -45,18 +106,17 @@ if (Working)  {
                 //     "<a>", product.description, "</a>",
                 // "</div>",
                 "<div class='col-2 text-center'>",
-                    "<a class='avail_stock'>Avail: ", product.num_instock, "</a>",
-                "</div>",
-                "<div class='col-1'>",
-                    "<input name='add-quantity' class='add-item  form-control add-quantity' value='0' type='text' />",
-//                "<input name='add-quantity' class='add-item  form-control add-quantity' placeholder='1' value='1' type='text' />",
+                    "<a class='avail_stock'>Quantity: ", product.quantity, "</a>",
                 "</div>",
                 "<div class='col-2'>",
                     "<a>@ $", product.unit_price, "</a>",
                 "</div>",
-                "<div class='col-1'>",
-                    "<button type='submit' class='btn btn-success addtocart'> Add to Cart </button>",
+                "<div class='col-2'>",
+                    "<a>= $", product.total_cost, "</a>",
                 "</div>",
+                "<div class='col-1'>",
+                    "<button class='delete btn btn-danger'>X</button>",
+                 "</div>",
             
             "</div>"   
 
@@ -64,63 +124,32 @@ if (Working)  {
         ); 
         
         // Add the product object to the row.
-        $newInputRow.find("button.addtocart").data("product", product);
-        // couldn't get below to work. couldn't figure out syntax to get at the data
-        // in the row.  Attached it to the button in the row instead.
-    //  $newInputRow.data("product", product);  
-        
+        $newInputRow.find("button.delete").data("product", product);
+        $newInputRow.find("button.delete").data("id", product.id);
+    
         return $newInputRow;
     }   // function createNewRow(product)
       
     //******************************************************************/
-    // This function grabs products from the database and updates the view
+    // This function gets the shopping cart from the storefront view
     function getShoppingCart() {
-      $.get("/api/shoppingcart", function(data) {
-        shopping_cart = data;
-        initializeRows();
-      });
+    //   $.get("/api/shoppingcart", function(data) {
+    //     shopping_cart = data;
+         initializeRows();
+    //   });
     }  //function getShoppingCart()
   
-    //**********************************************************************/
-    // This function inserts a new product into the shopping cart array
-    function AddProductToCart(event) {
-    event.preventDefault();
+  // This function deletes a product from the shopping cart arraywhen the user clicks the delete button
+  function DeleteItemFromCart(event) {
+    event.stopPropagation();
+    var id = $(this).data("id");
+    // $.ajax({
+    //   method: "DELETE",
+    //   url: "/api/products/" + id
+    // }).then(getProducts);
+  }
 
-    // Get the current product selected 
-    var CurProduct = $(this).data("product");
-    if (DebugOn) console.log ("In AddProduct() - CurProduct", CurProduct);
 
-    // Get the quantity requested  
-    var AddQuantity = parseInt($("input.add-quantity").val()); 
-    if (DebugOn) console.log ("In AddProduct() - $(input.add-quantity').val()", $("input.add-quantity").val());
-    if (DebugOn) console.log ("In AddProduct() - AddQuantity " + AddQuantity);
-    
-    // make sure there is enough in stock to fullfill the order
-    var InstockQuantity = CurProduct.num_instock;
-    if (DebugOn) console.log ("In AddProduct() - InstockQuantity " + InstockQuantity);
-
-    if (InstockQuantity >= AddQuantity) {  // add product to the shopping cart array
-        // Add the selected product to the shopping cart array
-        var AddProduct = {
-            id:  CurProduct.id,
-            name: CurProduct.name,
-            description: CurProduct.description,
-            category: CurProduct.category,
-            unit_price:  CurProduct.unit_price, // should it be?  parseFloat($newPrice.val().trim()),
-            quantity: AddQuantity,
-            picture: CurProduct.picture,
-        };
-    
-        shopping_cart.push(AddProduct); 
-        alert ("Item: " + CurProduct.name + " added to the shopping cart");
-    }
-    else {   // Not enough quantity in stock alert an error for now
-        alert ("Not enough quantity in stock");
-    }
-    console.log ("In AddProductToCart - current shopping_cart ", shopping_cart);
-    }  // function AddProductToCart(event)
-
-} // if (Working)
 });  //  $(document).ready(function()
 
 
