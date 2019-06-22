@@ -6,7 +6,11 @@
   <title>Storefront Page</title>
 
   <!-- Latest compiled and minified CSS & JS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -14,6 +18,8 @@
 </head>
 
 <body>
+
+  <!------------------- Navigation Bar --------------->
   <nav class="navbar navbar-expand-sm bg-light">
     <a href="/">
       <button class="btn btn-lg btn-default">
@@ -27,18 +33,22 @@
     </a>
 
     <ul class="navbar-nav ml-auto">
+      
       <li class="nav-item">
-        <a class="nav-link" href="/view_cart">View Cart</a>
+         <!-- Button to call the View Cart Function -->
+         <button type="button" class="btn btn-primary" id="ViewCartBtn">View Cart</button>   
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/checkout">Checkout</a>
+          <button type="button" class="btn btn-primary" id="CheckOutBtn">Checkout</button>   
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/customer_login">Login</a>
+         <a class="nav-link" href="/customer_login">Login</a>
       </li>
     </ul>
   </nav>
-
+  <!------------------- Navigation Bar --------------->
+  
+  <!---Does not go in production ---------------- Jumbotron --------------->
   <div class="container">
     <div class="jumbotron">
 
@@ -48,19 +58,201 @@
           <span class="store-list"></span>
       </div>
     </div>  <!-- jumbotron -->
-  </div>   <!-- container -->
-
     <footer class="footer">
-      <div class="container">
-        <!-- <p>
-          <a href="/api/tables">API Table Link</a> |
-          <a href="/api/waitlist">API Wait List</a> -->
-      </div>
-    </footer>
+      </footer>
+  </div>   <!-- container -->
+  <!-- Does not go into production ----------------- Jumbotron --------------->
 
-  </div>
+  <!------------------- Shopping Cart Modal ------------------>
+  <div id="CartModal" class="modal fade" role="dialog">
 
-	<!-- Custom Shopping Cart Script -->
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+  
+          <div class="modal-content">
+  
+            <div class="modal-header">
+                  <h3 class="modal-title" id="modal-title">Shopping Cart</h3>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+            </div>
+  
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-2 text-center">
+                      <p>Product #</p>
+                    </div>
+                    <div class="col-4">
+                       <p>Product Name</p>
+                    </div>
+                    <div class="col-2 text-center">
+                        <p>Quantity</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Unit Price</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Total Cost</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="shoppingcart-list"></span>
+                </div>
+  
+                     
+            </div>  <!--  modal-body -->
+<!-- 
+            <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+ -->
+<!-- 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>        
+            </div>
+-->
+          </div> <!-- modal-content -->
+      </div> <!-- modal-dialog -->
+  </div>  <!-- outer modal div -->
+  <!------------------- Shopping Cart Modal ------------------>
+
+  <!------------------- Checkout Modal ------------------>
+  <div id="CheckoutModal" class="modal fade" role="dialog">
+
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+
+        <div class="modal-content">
+
+          <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Checkout</h3>
+                <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+          </div>
+
+          <div class="modal-body">
+
+              <p>Please enter your shipping address information below.  Items marked with an * are required.</p>
+              <form>
+                <div class="form-group">
+                  <label for="CustomerName">Name: *</label>
+                  <input type="text" class="form-control" id="CustomerName">
+                </div>
+
+                <div class="form-group">
+                    <label for="CustomerAddr">Address: *</label>
+                    <input type="text" class="form-control" placeholder="Line 1" id="CustomerAddr1">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Line 2 (optional)" id="CustomerAddr2">
+                </div>
+
+                <div class="form-group">
+                    <label for="City">City: *</label>
+                    <input type="text" class="form-control" id="CustomerCity">
+                </div>
+
+                <div class="form-group">
+                    <label for="State">State: *</label>
+                    <input type="text" class="form-control" id="CustomerState">
+                </div>
+
+                <div class="form-group">
+                    <label for="Zip">Zip Code: *</label>
+                    <input type="text" class="form-control" id="CustomerZip">
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Email Address: *</label>
+                    <input type="text" class="form-control" placeholder="JohnDoe@gmail.com" id="CustomerEmail">
+                </div>
+
+              </form>
+
+              <div>
+                  <span class="checkout-list"></span>
+              </div>
+                   
+          </div>  <!--  modal-body -->
+<!-- 
+          <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+-->
+
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" id="order-submit">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i> Submit
+              </button>
+          </div>
+
+        </div> <!-- modal-content -->
+      </div> <!-- modal-dialog -->
+  </div>  <!-- outer modal div -->
+  <!------------------- Checkout Modal ------------------>
+
+  <!------------------- Order Summary Modal ------------------>
+  <div id="OrderSummaryModal" class="modal fade" role="dialog">
+
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+  
+          <div class="modal-content">
+  
+            <div class="modal-header">
+                  <h3 class="modal-title" id="modal-title">Order Summary</h3>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+            </div>
+  
+            <div class="modal-body">
+
+                <div class="row">
+                    <span class="customer-info"></span>
+                </div>
+                <hr>
+                <div class="row">
+                    <span class="cart-list"></span>
+                </div>
+                
+  
+                     
+            </div>  <!--  modal-body -->
+<!-- 
+            <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+ -->
+<!-- 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>        
+            </div>
+-->
+          </div> <!-- modal-content -->
+      </div> <!-- modal-dialog -->
+  </div>  <!-- outer modal div -->
+  <!------------------- Shopping Cart Modal ------------------>
+
+  <!------------------- AlertBox Modal ------------------>
+  <div id="AlertModal" class="modal fade" role="dialog">
+
+      <div class="modal-dialog  modal-sm">
+
+        <div class="modal-content" id="AlertBox">
+
+          <div class="modal-header">
+              <div>
+                  <span class="alert-msg1"></span>
+              </div>   
+          </div>
+
+          <div class="modal-body">
+              <div>
+                  <span class="alert-msg2"></span>
+              </div>   
+          </div>  <!--  modal-body -->
+
+          <div class="modal-footer">
+             <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>        
+          </div>
+
+        </div> <!-- modal-content -->
+      </div> <!-- modal-dialog -->
+  </div>  <!-- outer modal div -->
+  <!------------------- AlertBox Modal ------------------>
+
+
+	<!-- Custom Script -->
 	<script src="js/store_view.js" type="text/javascript"></script>
 
 </body>

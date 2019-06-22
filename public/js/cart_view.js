@@ -46,7 +46,7 @@ $(document).ready(function() {
 console.log ("In file cart_view.js");
 console.log ("In file cart_view.js shopping_cart: ", shopping_cart);
     var DebugOn = true;   // debug flag
-    var Working = false;
+
 
     var $CartList = $(".cart-list");  // The product list for display 
 
@@ -59,13 +59,14 @@ console.log ("In file cart_view.js shopping_cart: ", shopping_cart);
     
     //******************************************************************/
     // This function gets the items from shopping_cart and displays them
-    function initializeRows() {
+    function initCartRows() {
+
       $CartList.empty();
       var rowsToAdd = [];
       var CartTotal = 0.00;
 
       for (var i = 0; i < shopping_cart.length; i++) {
-        rowsToAdd.push(createNewRow(shopping_cart[i]));
+        rowsToAdd.push(createNewCartRow(shopping_cart[i]));
         CartTotal += parseFloat(shopping_cart[i].total_cost);
       }
       
@@ -87,12 +88,12 @@ console.log ("In file cart_view.js shopping_cart: ", shopping_cart);
 
       // display the shopping cart on page
       $CartList.prepend(rowsToAdd);
-    }  //  function initializeRows()
+    }  //  function initCartRows()
 
         
     //******************************************************************/
     // This function constructs a product-item row
-    function createNewRow(product) {
+    function createNewCartRow(product) {
         var $newInputRow = $(
         [
             "<div class='row'>",
@@ -128,14 +129,14 @@ console.log ("In file cart_view.js shopping_cart: ", shopping_cart);
         $newInputRow.find("button.delete").data("id", product.id);
     
         return $newInputRow;
-    }   // function createNewRow(product)
+    }   // function createNewCartRow(product)
       
     //******************************************************************/
     // This function gets the shopping cart from the storefront view
     function getShoppingCart() {
     //   $.get("/api/shoppingcart", function(data) {
     //     shopping_cart = data;
-         initializeRows();
+         initCartRows();
     //   });
     }  //function getShoppingCart()
   
