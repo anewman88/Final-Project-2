@@ -2,6 +2,7 @@
 // api-routes.js - this file offers a set of routes for displaying and saving data 
 // CRUD to the db
 // *********************************************************************************
+var DebugOn = true;
 
 // Dependencies
 // =============================================================
@@ -60,7 +61,7 @@ module.exports = function(app) {
 
   });
 
-  // PUT route for updating products. We can get the updated product data from req.body
+  // PUT route for updating entire products. We can get the updated product data from req.body
   app.put("/api/products", function(req, res) {
 
     // Update takes in an object describing the properties we want to update, and
@@ -86,4 +87,47 @@ module.exports = function(app) {
         res.json(err);
       });
   });
+
+  // PUT route for updating total_sales field
+  app.put("/api/update_product_total_sales", function(req, res) {
+    if (DebugOn) console.log ("in /api/update_product_total_sales " + req.body.id);
+    if (DebugOn) console.log ("in /api/update_product_total_sales " + req.body.total_sales);
+
+    db.Product.increment({
+      total_sales: req.body.total
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(dbProduct) {
+      res.json(dbProduct);
+    })
+      .catch(function(err) {
+      // Whenever a validation or flag fails, an error is thrown
+      // We can "catch" the error to prevent it from being "thrown", which could crash our node app
+        res.json(err);
+      });
+  });
+
+    // PUT route for updating num_instock field
+    app.put("/api/update_product_quantity", function(req, res) {
+      if (DebugOn) console.log ("in /api/update_product_quantity " + req.body.id);
+      if (DebugOn) console.log ("in /api/update_product_quantity" + req.body.quantity);
+
+      db.Product.decrement({
+        num_instock: req.body.quantity
+      }, {
+        where: {
+          id: req.body.id
+        }
+      }).then(function(dbProduct) {
+        res.json(dbProduct);
+      })
+        .catch(function(err) {
+        // Whenever a validation or flag fails, an error is thrown
+        // We can "catch" the error to prevent it from being "thrown", which could crash our node app
+          res.json(err);
+        });
+    });
+  
 };

@@ -71,13 +71,13 @@ $(document).ready(function() {
     //******************************************************************/
     // This function grabs products from the database and updates the view
     function getProducts() {
-      $.get("/api/products", function(data) {
-        product_list = data;
-        initializeRows();
-      });
-    }  //function getProducts()
-  
-//********************************************************************** */
+        $.get("/api/products", function(data) {
+          product_list = data;
+          initializeRows();
+        });
+      }  //function getProducts()
+    
+  //********************************************************************** */
 //  Not in production file
 //********************************************************************** */
 
@@ -150,6 +150,7 @@ $(document).ready(function() {
     var $ShoppingCartTotal = $("#CartTotal");  // The shopping cart total div 
 
     for (var i = 0; i < shopping_cart.length; i++) {
+        if (DebugOn) console.log ("displaying products in shopping cart ", shopping_cart[i]);
         rowsToAdd.push(createNewCartRow(shopping_cart[i]));
         CartTotal += parseFloat(shopping_cart[i].total_cost);
     }
@@ -270,18 +271,16 @@ $(document).ready(function() {
 
             if (DebugOn) console.log ("after call validateForm() data is valid ", CustomerData);
     
-            // update the product database by subtracting the ordered quantities
-            // and updating the total sales field.
-            // Add/post the input customer data to the order database  
+            // for each item in the shopping_cart update the product in the products table
+            if (DebugOn) console.log ("shopping cart length " + shopping_cart.length);
+            for (var i = 0; i < shopping_cart.length; i++) {
+                
+                if (DebugOn) console.log ("updating database with products in shopping cart ", shopping_cart[i]);
+                updateProduct(shopping_cart[i].id, shopping_cart[i].total_cost, shopping_cart[i].quantity);
+            }
             
-            // $.post(currentURL + "/api/friends", userData, function(matchData) {
-            //   $("#userName").text(userData.name);
-            //   $("#userImg").attr("src", userData.photo);
-            //   $("#matchName").text(matchData.name);
-            //   $("#matchImg").attr("src", matchData.photo);
+            // Add the order to the customer order table
 
-
-            // });   // $.post()
 
             // notify the customer that their order is complete. might need
             // to do this inside post
@@ -344,6 +343,55 @@ $(document).ready(function() {
         $(".alert-msg1").text(str1);
         $(".alert-msg2").text(str2);
     }  // function InfoAlert()
+
+    //******************************************************************/
+    // This function grabs products from the database and updates the view
+    function updateProduct(cur_id, sales_total, quantity) {
+
+        $.post("/api/update_product_total_sale", {cur_id, sales_total});
+        $.post("/api/update_product_quantity", {cur_id, quantity});
+    }  //function updateProduct()
+    
+
+//**************************************************************************/
+// function ProcessOrder()  
+// The purpose of this function is to process the user's order and to
+// update the new quantity in the product database
+//**************************************************************************/
+function ProcessOrder(Item, Quantity) {
+
+    if (DebugON) console.log ("in ProcessOrder ", Item);
+
+    var Total = Quantity * Item.unit_price;
+
+//    var query = "UPDATE products SET stock_quantity = stock_quantity + " + updateProduct.add_quantity + " WHERE item_id = " + updateProduct.item_id;
+    var query = "UPDATE products SET stock_quantity = stock_quantity - " + Quantity + 
+          ", product_sales = product_sales + " + Total + " WHERE item_id = " + Item.item_id;
+
+    connection.query(query, function(err, res) {
+        if (err) {
+           console.error("*** In ProcessOrder() query error: " + query + " " + err.stack + " *** ".red);
+           return;
+        }  // if 
+   
+        console.log ("--------------------------------------------------------------------------------");
+        console.log ("  Your Bamazon Order Summary: ");
+        console.log (" ");
+        console.log("     Product #" + Item.item_id + ": " + Item.product_name);
+        console.log("     Unit cost of $" + Item.unit_price + " with quantity of " + Quantity);
+        console.log("     Your total cost is: $" + Total);
+        console.log (" ");
+        console.log ("  Thank you for your order");
+        console.log ("--------------------------------------------------------------------------------");
+        
+        // display the updated product list
+        DisplayProducts();
+        
+    });  // connection.query
+
+}  // function ProcessOrder()
+
+//**************************************************************************/
 
 });  //  $(document).ready(function()
 
