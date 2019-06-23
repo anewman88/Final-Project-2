@@ -23,8 +23,10 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
+console.log ("requiring product_routes.js");
 require("./app/routes/product_routes.js")(app);
-require("./routes/htmlRoutes")(app);
+console.log ("requiring htmlRoutes.js");
+require("./routes/htmlRoutes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

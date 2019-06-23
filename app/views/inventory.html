@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Candles</title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/lumen/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div>
+			<h1 class="text-center"><span class="fa fa-fire"></span> Smelly Candles Inventory <span class="fa fa-fire"></span></h1>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<ul class="list-group product-list">
+					<li class="list-group-item new-item">
+
+						<form id="product-form">
+							<div class="container">
+								<div class="row">
+
+									<div class="col-1">
+									<input name="new-name" class="new-item form-control new-name" placeholder="Product Name" type="text" />
+									</div>
+									<div class="col-2">
+										<input name="new-description" class="new-item  form-control new-description" placeholder="Description" type="text" />
+									</div>
+									<div class="col-1">
+										<input name="new-category" class="new-item  form-control new-category" placeholder="Category" type="text" />
+									</div>
+									<div class="col-1">
+										<input name="new-quantity" class="new-item  form-control new-quantity" placeholder="Quantity" type="text" />
+									</div>
+									<div class="col-1">
+											<input name="new-price" class="new-item  form-control new-price" placeholder="Unit Price" type="text" />
+									</div>
+									<div class="col-1">
+											<input name="new-totalsales" class="new-item  form-control new-totalsales" placeholder="Total Sales" type="text" />
+									</div>
+									<div class="col-1">
+										<input name="new-picture" class="new-item  form-control new-picture" placeholder="Picture" type="text" />
+									</div>
+										
+  					                <div class="col-2">
+                 					   <button type="submit" class="btn btn-success">Add Product</button>
+									</div>
+									
+        			      		</div>
+              				</div>
+						</form>
+
+					</li>
+					<div>
+						<a>Product-Container</a>
+						<span class="product-container"></span>
+
+					</div>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Custom Script -->
+	<script src="js/inv_view.js" type="text/javascript"></script>
+
+</body>
+
+</html>

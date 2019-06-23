@@ -2,79 +2,20 @@ var shopping_cart = [];  // The shopping cart array
 var DebugOn = true;   // debug flag
 
 $(document).ready(function() {
-
+    if (DebugOn) console.log ("Loading store_view.js from public");
+    
     var product_list = [];   // The product list array from db
-    var $ProductList = $(".store-list");  // The product list for [old] display 
-    var $ProductDisplay = $(".product-list");  // The product list for [new] display  
+    var $ProductList = $(".store-list");  // The product list for display 
     var $CartList = $(".shoppingcart-list");  // The shopping cart list for display 
-    var $ShoppingCartTotal = $("#CartTotal");  // The shopping cart total div 
 
     // Adding event listeners for adding a product to the shopping cart
     $(document).on("click", "button.addtocart", AddProductToCart);
   
     //******************************************************************/
-    // Get products from database when page loads and display them on the page
+    // Getting products from database when page loads and displays it on the page
     getProducts();
-    if (DebugOn) console.log ("Got product_list ", product_list);
-
-    //**********************************************************************/
-    function DisplayProducts() {
-        if (product_list.length > 0) {
-
-            $ProductDisplay.empty();
-
-            var ItemsToDisplay = [];
-            ItemsToDisplay.push("<div class='row'>");  
-
-            for (var i = 0; i < product_list.length; i++) {
-                ItemsToDisplay.push(CreateProductItem(product_list[i]));
-                if (DebugOn) console.log ("ItemsToDisplay ", ItemsToDisplay);
-
-                // Check if a new row needs to be started 
-            //     var Remainder = i % 4;
-            //     if (Remainder === 0) { // end the current row
-            //         ItemsToDisplay.push("</div>");  // End the current row
-            //     }
-            //     if (i != product_list.length)  { // if more products then start a new row
-            //        ItemsToDisplay.push("<div class='row'>");  
-            //     }
-            }  // for
-            // if (Remainder != 0) { // check for end of last row 
-            //     ItemsToDisplay.push("</div>");  // End the current row
-            // }
-            ItemsToDisplay.push("</div>");  // End the current row
-            ItemsToDisplay.push("</div>");  // End the current row
-            
-            $ProductDisplay.append(ItemsToDisplay);
-
-        }  // if (product_list.length > 0)
     
-    }  // DisplayProducts()  
-    
- 
-    //******************************************************************/
-    // This function constructs an HTML product-item
-    function CreateProductItem(product) {
-        var $ProductItem = $(
-        [
-                "<div class='col-3'>",
-                "<p class='item-title'>", product.name, "<br> $", product.unit_price, "</p>",
-//                "<button class='store-item addtocart' value='" + index + "'></button>",
-                "<button class='store-item addtocart'></button>",
-                "<p class='hidden buy-me'>Click to add to cart!</p>",
-//                "<a class='avail_stock'>Avail: ", product.num_instock, "</a>",
-                "</div>"
-        ].join("")
-        ); 
-        
-        // Add the product object to the row.
-        // $newInputRow.find("button.addtocart").data("product", product);
-        // $newInputRow.find("button.addtocart").data("id", product.id);
-        
-        return $ProductItem;
-    }   // function CreateProductItem(product, index)
-
- //******************************************************************************************** */ 
+  
     //******************************************************************/
     // This function resets the products displayed with new products from the database
     function initializeRows() {
@@ -86,9 +27,6 @@ $(document).ready(function() {
       $ProductList.append(rowsToAdd);
     }  //  function initializeRows()
 
-
-
-    
     
     //******************************************************************/
     // This function constructs a product-item row
@@ -127,21 +65,20 @@ $(document).ready(function() {
         // Add the product object to the row.
         $newInputRow.find("button.addtocart").data("product", product);
         $newInputRow.find("button.addtocart").data("id", product.id);
-        if (DebugOn) console.log("New Row ", $newInputRow);
+        
         return $newInputRow;
     }   // function createNewRow(product)
       
     //******************************************************************/
     // This function grabs products from the database and updates the view
     function getProducts() {
-      $.get("/api/products", function(data) {
-        product_list = data;
-        DisplayProducts();
-        initializeRows();
-      });
-    }  //function getProducts()
-  
-//********************************************************************** */
+        $.get("/api/products", function(data) {
+          product_list = data;
+          initializeRows();
+        });
+      }  //function getProducts()
+    
+  //********************************************************************** */
 //  Not in production file
 //********************************************************************** */
 
@@ -156,12 +93,6 @@ $(document).ready(function() {
 
     // Get the current product selected 
     var CurProduct = $(this).data("product");
-
-//************************* */
-// console.log("before /api/products test post", CurProduct);
-//     $.post("/api/products", CurProduct, getProducts);
-// console.log("after /api/products test post", CurProduct);
-    //************************** */    
     if (DebugOn) console.log ("In AddProduct() - CurProduct", CurProduct);
 
     // Get the quantity requested  
@@ -210,16 +141,6 @@ $(document).ready(function() {
         DisplayShoppingCart();
     });
 
-        //******************************************************************/
-    // This function gets the items from shopping_cart and displays them
-    function EmptyShoppingCart() {
-
-        $CartList.empty();
-        $ShoppingCartTotal.text(0.00);
-        shopping_cart = [];
-
-    }  // function EmptyShoppingCart()
-
     //******************************************************************/
     // This function gets the items from shopping_cart and displays them
     function initCartRows() {
@@ -227,8 +148,10 @@ $(document).ready(function() {
     $CartList.empty();
     var rowsToAdd = [];
     var CartTotal = 0.00;
+    var $ShoppingCartTotal = $("#CartTotal");  // The shopping cart total div 
 
     for (var i = 0; i < shopping_cart.length; i++) {
+        if (DebugOn) console.log ("displaying products in shopping cart ", shopping_cart[i]);
         rowsToAdd.push(createNewCartRow(shopping_cart[i]));
         CartTotal += parseFloat(shopping_cart[i].total_cost);
     }
@@ -312,7 +235,7 @@ $(document).ready(function() {
     $("#CheckOutBtn").click(function(){
 
         if (DebugOn) console.log ("Checkout Button Clicked");
-       
+
         // Display the Checkout modal and wait for submit button
         $("#CheckoutModal").modal("show");       
     });
@@ -329,7 +252,6 @@ $(document).ready(function() {
         
         if (DebugOn) console.log ("Submit Button Clicked");
 
- 
         // Get the input customer data
         CustomerData = {
             name: $("#CustomerName").val(),
@@ -350,12 +272,6 @@ $(document).ready(function() {
 
             if (DebugOn) console.log ("after call validateForm() data is valid ", CustomerData);
     
-            // update the product database by subtracting the ordered quantities
-            // and updating the total sales field.
-            // Add/post the input customer data to the order database  
-            
-            if (DebugOn) console.log ("after call validateForm() data is valid ", CustomerData);
-    
             // for each item in the shopping_cart update the product in the products table
             if (DebugOn) console.log ("shopping cart length " + shopping_cart.length);
             for (var i = 0; i < shopping_cart.length; i++) {
@@ -366,18 +282,6 @@ $(document).ready(function() {
             
             // Add the order to the customer order table
 
-
-
-
-            // $.post(currentURL + "/api/friends", userData, function(matchData) {
-            //   $("#userName").text(userData.name);
-            //   $("#userImg").attr("src", userData.photo);
-            //   $("#matchName").text(matchData.name);
-            //   $("#matchImg").attr("src", matchData.photo);
-            // });   // $.post()
-
-            // Empty the shopping cart
-            EmptyShoppingCart();
 
             // notify the customer that their order is complete. might need
             // to do this inside post
@@ -435,25 +339,60 @@ $(document).ready(function() {
 
     });  //  $("#submit").on("click", function()
 
-    //******************************************************************/
-    // This function updates the sales_total and quantity for the cur_id
-    // in the database
-    function updateProduct(cur_id, sales, quantity) {
-        if (DebugOn) console.log ("in updateProduct id: " + cur_id + " total: " + sales + " quant: ", quantity);
-        var id = parseInt(cur_id);
-        var total_sales = (parseFloat(sales)).toFixed(2);
-        if (DebugOn) console.log ("total_sales " + total_sales);
-
-        $.post("/api/update_totalsales", {id, total_sales});
-        $.post("/api/update_product_quantity", {id, quantity});
-      
-    }  //function updateProduct()
-
     function InfoAlert (str1, str2) {
         $("#AlertModal").modal("show");
         $(".alert-msg1").text(str1);
         $(".alert-msg2").text(str2);
     }  // function InfoAlert()
+
+    //******************************************************************/
+    // This function grabs products from the database and updates the view
+    function updateProduct(cur_id, sales_total, quantity) {
+
+        $.post("/api/update_product_total_sale", {cur_id, sales_total});
+        $.post("/api/update_product_quantity", {cur_id, quantity});
+    }  //function updateProduct()
+    
+
+//**************************************************************************/
+// function ProcessOrder()  
+// The purpose of this function is to process the user's order and to
+// update the new quantity in the product database
+//**************************************************************************/
+function ProcessOrder(Item, Quantity) {
+
+    if (DebugON) console.log ("in ProcessOrder ", Item);
+
+    var Total = Quantity * Item.unit_price;
+
+//    var query = "UPDATE products SET stock_quantity = stock_quantity + " + updateProduct.add_quantity + " WHERE item_id = " + updateProduct.item_id;
+    var query = "UPDATE products SET stock_quantity = stock_quantity - " + Quantity + 
+          ", product_sales = product_sales + " + Total + " WHERE item_id = " + Item.item_id;
+
+    connection.query(query, function(err, res) {
+        if (err) {
+           console.error("*** In ProcessOrder() query error: " + query + " " + err.stack + " *** ".red);
+           return;
+        }  // if 
+   
+        console.log ("--------------------------------------------------------------------------------");
+        console.log ("  Your Bamazon Order Summary: ");
+        console.log (" ");
+        console.log("     Product #" + Item.item_id + ": " + Item.product_name);
+        console.log("     Unit cost of $" + Item.unit_price + " with quantity of " + Quantity);
+        console.log("     Your total cost is: $" + Total);
+        console.log (" ");
+        console.log ("  Thank you for your order");
+        console.log ("--------------------------------------------------------------------------------");
+        
+        // display the updated product list
+        DisplayProducts();
+        
+    });  // connection.query
+
+}  // function ProcessOrder()
+
+//**************************************************************************/
 
 });  //  $(document).ready(function()
 

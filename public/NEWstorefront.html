@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Storefront Page</title>
+  <title>Candles</title>
 
   <!-- Latest compiled and minified CSS & JS -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,9 +14,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+  <!-- <link rel="stylesheet" href="./css/style.css"> -->
   <!-- <link rel="stylesheet" href="./css/styles.css"> -->
-  <link rel="stylesheet" href="./css/style.css">
+  <!-- <link rel="stylesheet" href="./css/style.css"> -->
 
 </head>
 
@@ -51,190 +51,174 @@
   </nav>
   <!------------------- Navigation Bar --------------->
 
-  <!-- ************************ New Stuff Here *********************************** -->
-  <!-- ************************************************************************** -->
-  <!---------------------- Jumbotron header --------------------------->
-  <div class="container">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="jumbo display-4 text-center" >Smelly Candles</h1>
-        <p class="lead text-center">Git your Favorite Candles Smellier</p>
-      </div>
+  <!------------------ Goes into production ------------------->
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="jumbo display-4 text-center" >Smelly Candles</h1>
+      <p class="lead text-center">Git your Favorite Candles smellier</p>
     </div>
+  </div>
 
-  </div>   <!-- container -->
-
-  <!--------------------------- Products --------------------------->
   <section class="store">
-      <header>
-          <h4>Click on your favorite candle to add to your cart!</h4>
-          <p>Don't worry, you magically have a store giftcard for $150!!</p>
-      </header>
-      <main>
-          <section class="item-display">
-          <div class="container product-list">
-            <!-- <div class="row">
-  
-              <div class="col-3 pairing">
-                      <p class="item-title">The Hunger Games <br> $10.39</p>
-                      <button class="store-item item-one"></button>
-                      <p class="buy-me">Click to add to cart!</p>
-                      <a class="avail_stock"Avail: 4></a>
-              </div>
-              <div class="col-3 pairing">
-                      <p class="item-title">Aaron's Thinking Putty <br> $3.79</p>
-                      <button class="store-item item-two"></button>
-                      <p class="hidden buy-me">Click to add to cart!</p>
-              </div>
-              <div class="col-3 pairing">
-                      <p class="item-title">Settlers of Catan <br> $48.95</p>
-                      <button class="store-item item-three"></button>
-                      <p class="hidden buy-me">Click to add to cart!</p>
-              </div>
-              <div class="col-3 pairing">
-                      <p class="item-title">Journal <br> $9.98</p>
-                      <button class="store-item item-four"></button>
-                      <p class="hidden buy-me">Click to add to cart!</p>
-              </div>
-            </div>  -->
-            <!-- Row -->
-            
-            <!-- Grid row -->
-            <!-- <div class="row">
+    <header>
+        <h3>Click on an Item to Add it to you Cart!</h3>
+        <p>Don't worry, you magically have a store giftcard for $150!!</p>
+    </header>
+    <main>
+        <section class="item-display">
 
-              <div class="col-3 pairing">
-                  <p class="item-title">Charmander Nanoblocks <br> $27.95</p>
-                  <button class="store-item item-five"></button>
-                  <p class="hidden buy-me">Click to add to cart!</p>
-              </div>  
-              
-              <div class="col-3 pairing">
-                  <p class="item-title">name 6 <br> $36.78</p>
-                  <button class="store-item item-six"></button>
-                  <p class="hidden buy-me">Click to add to cart!</p>
-              </div>  
-              
-              <div class="col-3 pairing">
-                  <p class="item-title">name 7 <br> $40.00</p>
-                  <button class="store-item item-seven"></button>
-                  <p class="hidden buy-me">Click to add to cart!</p>
-              </div>  
-            </div>   -->
-            <!-- Row -->
-          </div>   <!-- container -->
-              
-              
-          </section>
-        <div class="store-total"></div>
-          <button class="checkout">Checkout</button>
-      </main>
+            <div class="pairing">
+                    <p class="item-title">The Hunger Games <br> $10.39</p>
+                    <button class="store-item item-one"></button>
+                    <p class="hidden buy-me">Click to add to cart!</p>
+            </div>
+            <div class="pairing">
+                    <p class="item-title">Aaron's Thinking Putty <br> $3.79</p>
+                    <button class="store-item item-two"></button>
+                    <p class="hidden buy-me">Click to add to cart!</p>
+            </div>
+            <div class="pairing">
+                    <p class="item-title">Settlers of Catan <br> $48.95</p>
+                    <button class="store-item item-three"></button>
+                    <p class="hidden buy-me">Click to add to cart!</p>
+            </div>
+            <div class="pairing">
+                    <p class="item-title">Journal <br> $9.98</p>
+                    <button class="store-item item-four"></button>
+                    <p class="hidden buy-me">Click to add to cart!</p>
+            </div>
+            <div class="pairing">
+                    <p class="item-title">Charmander Nanoblocks <br> $27.95</p>
+                    <button class="store-item item-five"></button>
+                    <p class="hidden buy-me">Click to add to cart!</p>
+            </div>                                        
+        </section>
+
+      <!-- <div class="store-total"></div>
+        <button class="checkout">Checkout</button> -->
+    </main>
 
   </section>
 
-
-  <!--------------------------- Footer --------------------------->
-           <!-- Footer -->
-           <footer class="page-footer font-small mdb-color lighten-3 pt-4">
-
-            <!-- Footer Links -->
-            <div class="container text-center text-md-left">
-          
-              <!-- Grid row -->
-              <div class="row">
-          
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
-          
-                  <!-- Content -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
-                    <p>Smelly Candle is a group project that uses sequelize and passport to create a user authorized system.</p>
-                    <p>Our group decided to create a satire candle website in order to create a user/administrator web app that allows user to place an order using encrypted passwords in mysql while admninistrators can update the product inventory </p>
-          
-                </div>
-                <!-- Grid column -->
-          
-                <hr class="clearfix w-100 d-md-none">
-          
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
-                  <!-- Links -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">About Us</h5>
-                  <ul class="list-unstyled">
-                    <li>
-                      <p><a href="https://github.com/anewman88">Ann</a></p>
-                    </li>
-                    <li>
-                      <p><a href="https://github.com/Leealp">Alpha</a></p>
-                    </li>
-                    <li>
-                      <p><a href="https://github.com/cglerupcoding">Chris</a></p>
-                    </li>
-                    <li>
-                      <p><a href="#!">Terra</a></p>
-                    </li>
-                  </ul>
-                </div>   <!-- Grid column -->
-
-                <hr class="clearfix w-100 d-md-none">
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-                  <!-- Contact details -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
-                  <ul class="list-unstyled">
-                    <li>
-                      <p><i class="fas fa-home mr-3"></i> Dallas, TX 75245, US</p>
-                    </li>
-                    <li>
-                      <p><i class="fas fa-envelope mr-3"></i> info@example.com</p>
-                    </li>
-                    <li>
-                      <p><i class="fas fa-phone mr-3"></i> 800-266-0212</p>
-                    </li>
-                  </ul>
-                </div><!-- Grid column -->
-                
-                <hr class="clearfix w-100 d-md-none">
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
-                  <!-- Social buttons -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
-          
-                  <!-- Github -->
-                  <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/cglerupcoding/InventoryPro">
-                    <i class="fab fa-fw fa-github"></i>
-                  </a>
-                </div>   <!-- Grid column -->
-              </div> <!-- Grid row -->
-            </div>
-            <!-- Footer Links -->
-          
-            <!--------------------------- Copyright --------------------------->
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2019 Copyright:
-              <a href="https://github.com/cglerupcoding/InventoryPro">SMU Coding Bootcamp Team Bazooka</a>
-            </div>
-            <!-- Copyright -->
-          
-          </footer>
-          <!-- Footer -->
-        
-  <!-- ************************************************************************** -->
-  
-  <!---Does not go in production ---------------- Jumbotron --------------->
-  <div class="container">
-    <div class="jumbotron">
-
-      <h1 class="text-center"><span class="fa fa-fire"></span> Welcome to Smelly Candles <span class="fa fa-fire"></span></h1>
-      <hr>
-      <div>
-          <span class="store-list"></span>
-      </div>
-    </div>  <!-- jumbotron -->
     <footer class="footer">
       </footer>
-    </div>   <!-- container -->
-    <!-- Does not go into production ----------------- Jumbotron --------------->
+  </div>   <!-- container -->
 
+<!----------------------- Footer --------------------------->
+<footer class="page-footer font-small mdb-color lighten-3 pt-4">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+  
+          <!-- Content -->
+          <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+            <p>Smelly Candle is a group project that uses sequelize and passport to create a user authorized system.</p>
+            <p>Our group decided to create a satire candle website in order to create a user/administrator web app that allows user to place an order using encrypted passwords in mysql while admninistrators can update the product inventory </p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none">
+  
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+  
+          <!-- Links -->
+          <h5 class="font-weight-bold text-uppercase mb-4">About Us</h5>
+  
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <a href="https://github.com/anewman88">Anne</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://github.com/Leealp">Alpha</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="https://github.com/cglerupcoding">Chris</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                <a href="#!">Terra</a>
+              </p>
+            </li>
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none">
+  
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+  
+          <!-- Contact details -->
+          <h5 class="font-weight-bold text-uppercase mb-4">Address</h5>
+  
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <i class="fas fa-home mr-3"></i> Dallas, TX 75245, US</p>
+            </li>
+            <li>
+              <p>
+                <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+            </li>
+            <li>
+              <p>
+                <i class="fas fa-phone mr-3"></i> 800-266-0212</p>
+            </li>
+
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none">
+  
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+  
+          <!-- Social buttons -->
+          <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+  
+          <!-- Github -->
+          <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/cglerupcoding/InventoryPro">
+            <i class="fab fa-fw fa-github"></i>
+          </a>
+          
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+      <a href="https://github.com/cglerupcoding/InventoryPro">SMU Coding Bootcamp Team Bazooka</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+
+<!-- **************************** Modals  ************************************ -->
   <!------------------- Shopping Cart Modal ------------------>
   <div id="CartModal" class="modal fade" role="dialog">
 
@@ -423,9 +407,23 @@
   </div>  <!-- outer modal div -->
   <!------------------- AlertBox Modal ------------------>
 
+<!-- *********************************************************************** -->
+  <!-- Custom Script -->
+  <script>
+  // var path = require("path");
+  console.log ("\n\n\n\n\n*************************************");
+  console.log ("current path:" + window.location.pathname);
+  console.log ("*************************************");
+  </script>
 
-	<!-- Custom Script -->
-	<script src="js/store_view.js" type="text/javascript"></script>
+<script src="store_view.js" type="text/javascript"></script> 
+<!-- <script src="./js/app.js" type="text/javascript"></script> -->
+
+<script>
+  // var path = require("path");
+  console.log ("just loaded store_view.js");
+  console.log ("*************************************");
+  </script>
 
 </body>
 

@@ -1,0 +1,183 @@
+body {
+
+    background-image: url("bg.png");
+    color: black;
+  
+  }
+  .checkout {
+    padding: 20px 40px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .checkout:hover {
+    cursor: pointer;
+    background: darkslategrey;
+    color: white;
+  }
+  
+  .checkout:active {
+    background: rgb(22, 36, 36);
+  }
+  
+  .jumbotron{
+    font-family: algerian;
+    background-image: url("candle.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+  color: white;
+  }
+  #jumbo1{
+    font-family: algerian;
+    background-image: url("candle1.gif");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  color: white;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .found {
+    display: block;
+  }
+  
+  .item-display {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .item-title {
+    margin: 0;
+  }
+  
+  .store {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .store-item {
+    border: 1px solid gray;
+    width: 200px;
+    height: 200px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .store-item:hover {
+    cursor: pointer;
+  
+  }
+  
+  .item-one {
+    background-image: url('https://stinkycandlecompany.com/product/chocolate-cake-batter-4-oz/');
+    background-position: center;
+    background-size: 95%;
+    color: white;
+  }
+  
+  .item-two {
+    background-image: url('https://stinkycandlecompany.com/product/pear-candle-4-oz/');
+    background-position: center;
+    background-size: 140%;
+    background-repeat: no-repeat;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  }
+  
+  .item-three {
+    background-image: url('https://stinkycandlecompany.com/product/pear-candle-4-oz/');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 130%;
+    color: white;
+    font-size: 25px; 
+  }
+  
+  .item-four {
+    background-image: url('https://stinkycandlecompany.com/product/pear-candle-4-oz/');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 150%;
+    color: white;
+  }
+  
+  .item-five {
+    background-image: url('https://stinkycandlecompany.com/product/pear-candle-4-oz/');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 105%;
+  }
+  
+  .pairing:hover {
+    background: darkslategrey;
+    color: white;
+  }
+  
+  .pairing > p {
+    font-size: 20px;
+  }
+  
+  
+  
+  
+  /* receipt */
+  aside {
+    text-align: center;
+  }
+  
+  .closing-remarks {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .container {
+    width: 1200px;
+    margin: auto;
+  
+  }
+  
+  .final {
+    margin: 0;
+  }
+  
+  
+  .receipt-title {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .receipt-title > h4 {
+    margin: 0;
+  }
+  
+  /* close receipt */
+  
+  @media (max-width: 800px) {
+    .item-display {
+        flex-direction: column;
+        align-items: center;
+    }
+    .pairing {
+        border: 1px solid darkslategrey;
+        margin-left: none;
+        margin-right: none;
+    }
+    .main-title {
+        width: 350px;
+    }
+  
+    .container {
+        width: 360px;
+    }
+    
+    .page-footer {
+        background-color: #929FBA;
+        color: white;
+    }
+  }

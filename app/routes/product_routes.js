@@ -25,6 +25,7 @@ module.exports = function(app) {
 
   // POST route for saving a new product
   app.post("/api/products", function(req, res) {
+console.log("in app.post /api/products");    
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // property (req.body)
@@ -63,6 +64,7 @@ module.exports = function(app) {
 
   // PUT route for updating entire products. We can get the updated product data from req.body
   app.put("/api/products", function(req, res) {
+console.log("in app.put /api/products");    
 
     // Update takes in an object describing the properties we want to update, and
     // we use where to describe which objects we want to update
@@ -89,20 +91,19 @@ module.exports = function(app) {
   });
 
   // PUT route for updating total_sales field
-  app.put("/api/update_product_total_sales", function(req, res) {
-    if (DebugOn) console.log ("in /api/update_product_total_sales " + req.body.id);
-    if (DebugOn) console.log ("in /api/update_product_total_sales " + req.body.total_sales);
+  app.post("/api/update_totalsales", function(req, res) {
+    if (DebugOn) console.log ("in /api/update_totalsales " + req.body.id);
+    if (DebugOn) console.log ("in /api/update_totalsales " + req.body.total_sales);
 
     db.Product.increment({
-      total_sales: req.body.total
+      total_sales: req.body.total_sales
     }, {
       where: {
         id: req.body.id
       }
     }).then(function(dbProduct) {
       res.json(dbProduct);
-    })
-      .catch(function(err) {
+    }).catch(function(err) {
       // Whenever a validation or flag fails, an error is thrown
       // We can "catch" the error to prevent it from being "thrown", which could crash our node app
         res.json(err);
@@ -110,9 +111,9 @@ module.exports = function(app) {
   });
 
     // PUT route for updating num_instock field
-    app.put("/api/update_product_quantity", function(req, res) {
-      if (DebugOn) console.log ("in /api/update_product_quantity " + req.body.id);
-      if (DebugOn) console.log ("in /api/update_product_quantity" + req.body.quantity);
+    app.post("/api/update_product_quantity", function(req, res) {
+      if (DebugOn) console.log ("in /api/update_product_quantity id: " + req.body.id);
+      if (DebugOn) console.log ("in /api/update_product_quantity quantity: " + req.body.quantity);
 
       db.Product.decrement({
         num_instock: req.body.quantity
