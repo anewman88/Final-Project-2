@@ -36,7 +36,12 @@
     </a>
 
     <ul class="navbar-nav ml-auto">
-      
+
+        <li class="nav-item">
+            <!-- Button to test Summary Page Function -->
+            <button type="button" class="btn btn-primary" id="ViewSummaryBtn">Test</button>   
+         </li>
+   
       <li class="nav-item">
          <!-- Button to call the View Cart Function -->
          <button type="button" class="btn btn-primary" id="ViewCartBtn">View Cart</button>   
@@ -265,7 +270,8 @@
                     <div class="col-2">
                         <p>Total Cost</p>
                     </div>
-                </div>
+                </div>  <!-- Row -->
+
                 <div>
                     <span class="shoppingcart-list"></span>
                 </div>
@@ -370,16 +376,76 @@
             </div>
   
             <div class="modal-body">
+                <!-- ********************************** -->
 
                 <div class="row">
-                    <span class="customer-info"></span>
-                </div>
-                <hr>
-                <div class="row">
-                    <span class="cart-list"></span>
-                </div>
+                  <span class="customer-info"></span>
+                </div>  
+                  
+                <div> <h4 style="text-align:center">Customer Info</h4> </div>
+                <div class="row"> 
+                    <div class="col-1"></div>
+                    <div class="col-2">Name:</div>
+                    <div class="col-4"><a id="customer_name"></a></div>
+                </div>  
+                <div class="row"> 
+                    <div class="col-1"></div>
+                    <div class="col-2">Address:</div>
+                    <div class="col-4"><a id="customer_address1"></a></div>
+                </div>  
+                <div class="row"> 
+                    <div class="col-1"></div>
+                    <div class="col-2"></div>
+                    <div class="col-4"><a id="customer_address2"></a></div>
+                </div>  
+                <div class="row"> 
+                    <div class="col-1"></div>
+                    <div class="col-2"></div>
+                    <div class="col-2"><a id="customer_city">,</a></div>
+                    <div class="col-1"><a id="customer_state"></a></div>
+                    <div class="col-4"><a id="customer_zip"></a></div>
+                </div>  
+                <div class="row"> 
+                    <div class="col-1"></div>
+                    <div class="col-2">Email Addr:</div>
+                    <div class="col-4"><a id="customer_email"></a></div>
+                </div>  
                 
-  
+                <br>
+                <hr>  
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-2">Order Number:</div>
+                    <div class="col-2"><a id="PO_number"></a></div>
+                    <div class="col-2">Created:</div>
+                    <div class="col-3"><a id="created"></a></div>
+                </div>
+
+                <br>
+                <hr>  
+                <div class="row">
+                    <div class="col-2 text-center">
+                      <p>Product #</p>
+                    </div>
+                    <div class="col-4">
+                       <p>Product Name</p>
+                    </div>
+                    <div class="col-2 text-center">
+                        <p>Quantity</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Unit Price</p>
+                    </div>
+                    <div class="col-2">
+                        <p>Total Cost</p>
+                    </div>
+                </div>  <!-- Row -->
+
+                <div>
+                  <span class="order-summary-list"></span>
+                </div>
+              </container>
+
                      
             </div>  <!--  modal-body -->
 <!-- 
@@ -393,12 +459,12 @@
           </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
-  <!------------------- Shopping Cart Modal ------------------>
+  <!------------------- Order Summary Modal ------------------>
 
   <!------------------- AlertBox Modal ------------------>
   <div id="AlertModal" class="modal fade" role="dialog">
 
-      <div class="modal-dialog  modal-sm">
+      <div class="modal-dialog  modal-md">
 
         <div class="modal-content" id="AlertBox">
 

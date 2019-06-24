@@ -25,7 +25,6 @@ module.exports = function(app) {
 
   // POST route for saving a new product
   app.post("/api/products", function(req, res) {
-console.log("in app.post /api/products");    
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // property (req.body)
@@ -64,7 +63,6 @@ console.log("in app.post /api/products");
 
   // PUT route for updating entire products. We can get the updated product data from req.body
   app.put("/api/products", function(req, res) {
-console.log("in app.put /api/products");    
 
     // Update takes in an object describing the properties we want to update, and
     // we use where to describe which objects we want to update
