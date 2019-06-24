@@ -25,6 +25,8 @@ app.use(express.static("public"));
 // =============================================================
 console.log ("requiring product_routes.js");
 require("./app/routes/product_routes.js")(app);
+console.log ("requiring order_routes.js");
+require("./app/routes/order_routes.js")(app);
 console.log ("requiring htmlRoutes.js");
 require("./routes/htmlRoutes.js")(app);
 

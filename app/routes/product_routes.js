@@ -1,13 +1,12 @@
 // *********************************************************************************
-// api-routes.js - this file offers a set of routes for displaying and saving data 
-// CRUD to the db
+// This file defines a set of routes for CRUD to the product table
 // *********************************************************************************
-var DebugOn = true;
+var DebugOn = false;
 
 // Dependencies
 // =============================================================
 
-// Requiring our models
+// Require the sequelize models
 var db = require("../models");
 
 // Routes
@@ -88,7 +87,7 @@ module.exports = function(app) {
       });
   });
 
-  // PUT route for updating total_sales field
+  // POST route for updating total_sales field
   app.post("/api/update_totalsales", function(req, res) {
     if (DebugOn) console.log ("in /api/update_totalsales " + req.body.id);
     if (DebugOn) console.log ("in /api/update_totalsales " + req.body.total_sales);
@@ -108,7 +107,7 @@ module.exports = function(app) {
       });
   });
 
-    // PUT route for updating num_instock field
+    // POST route for updating num_instock field
     app.post("/api/update_product_quantity", function(req, res) {
       if (DebugOn) console.log ("in /api/update_product_quantity id: " + req.body.id);
       if (DebugOn) console.log ("in /api/update_product_quantity quantity: " + req.body.quantity);
