@@ -20,7 +20,8 @@
 </head>
 
 <body>
-
+<div class="container">
+  
   <!-------------------  Site Navigation Bar --------------->
   <nav class="navbar navbar-expand-sm bg-light sticky-top">
     <a href="/">
@@ -33,8 +34,6 @@
       <button class="btn btn-md btn-primary">
         <span class="fa fa-list-alt"></span> Inventory</button>
     </a>
-
-    <!-- <h4 id="clickinfo">Click on your favorite candle to add to your cart!</h4> -->
 
     <ul class="navbar-nav ml-auto">
 
@@ -55,42 +54,36 @@
       </li>
     </ul>
   </nav>
-  <!------------------- Site Navigation Bar --------------->
-
-  <!-- ************************ New Stuff Here *********************************** -->
-  <!-- ************************************************************************** -->
+  
   <!---------------------- Jumbotron header --------------------------->
-  <div class="container">
-    <div class="jumbotron jumbotron-fluid">
+  <!-- <div class="container"> -->
+      <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="jumbo display-4 text-center" >Smelly Candles</h1>
         <p class="lead text-center">Git your Favorite Candles Smellier</p>
       </div>
     </div>
 
-  </div>   <!-- container -->
     <!-------------------  Page Navigation Bar --------------->
     <div class="row">
         <!-- Category Filter - Drop Down -->
-        <div class="col-4">  
+        <div class="col-3">  
         </div>
 
         <!--  Header - Message to User  -->
-        <div class="col-5">
+        <div class="col-7">
             <header>
                 <h4>Click on your favorite candle to add it to your cart!</h4>
             </header>
         </div>
 
         <!--  Page forward and backward buttons -->
-        <div class="col-3">
+        <div class="col-2">
             <button type="button" class="btn btn-primary" id="PageBackward"><<</button>   
             <button type="button" class="btn btn-primary" id="PageForward">>></button>   
         </div>
     </div>
 
-    <!------------------- Page Navigation Bar --------------->
-  
   
   <!--------------------------- Products --------------------------->
   <section class="store">
@@ -126,6 +119,9 @@
 
             </div>  <!-- Row -->
             <div class="row">
+                 <hr>
+            </div>
+            <div class="row">
 
               <div class="col-3 pairing" id="box_4" value="4">
                   <p class="item-title" id="title_4">Title</p>
@@ -160,7 +156,8 @@
 
   </section>
 
-
+</div>   <!-- container -->
+  
   <!--------------------------- Footer --------------------------->
            <!-- Footer -->
            <footer class="page-footer font-small mdb-color lighten-3 pt-4">
@@ -247,23 +244,7 @@
           </footer>
           <!-- Footer -->
         
-  <!-- ************************************************************************** -->
   
-  <!---Does not go in production ---------------- Jumbotron --------------->
-  <div class="container">
-    <div class="jumbotron">
-
-      <h1 class="text-center"><span class="fa fa-fire"></span> Welcome to Smelly Candles <span class="fa fa-fire"></span></h1>
-      <hr>
-      <div>
-          <span class="store-list"></span>
-      </div>
-    </div>  <!-- jumbotron -->
-    <footer class="footer">
-      </footer>
-    </div>   <!-- container -->
-    <!-- Does not go into production ----------------- Jumbotron --------------->
-
   <!------------------- Shopping Cart Modal ------------------>
   <div id="CartModal" class="modal fade" role="dialog">
 
@@ -313,7 +294,6 @@
           </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
-  <!------------------- Shopping Cart Modal ------------------>
 
   <!------------------- Checkout Modal ------------------>
   <div id="CheckoutModal" class="modal fade" role="dialog">
@@ -394,7 +374,6 @@
         </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
-  <!------------------- Checkout Modal ------------------>
 
   <!------------------- Order Summary Modal ------------------>
   <div id="OrderSummaryModal" class="modal fade" role="dialog">
@@ -498,7 +477,6 @@
           </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
-  <!------------------- Order Summary Modal ------------------>
 
   <!------------------- AlertBox Modal ------------------>
   <div id="AlertModal" class="modal fade" role="dialog">

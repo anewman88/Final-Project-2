@@ -1,6 +1,5 @@
 var DebugOn = true;   // debug flag
 var ItemsPerPage = 8;
-//var CurPage = 0;
 var ProductIndex = 0;
 
 $(document).ready(function() {
@@ -70,80 +69,7 @@ $(document).ready(function() {
     }  // DisplayProducts()  
     
  
-    //******************************************************************/
-    // This function constructs an HTML product-item
-    function CreateProductItem(product) {
-        var $ProductItem = $(
-        [
-                "<div class='col-3'>",
-                "<p class='item-title'>", product.name, "<br> $", product.unit_price, "</p>",
-//                "<button class='store-item addtocart' value='" + index + "'></button>",
-                "<button class='store-item addtocart'></button>",
-                "<p class='hidden buy-me'>Click to add to cart!</p>",
-//                "<a class='avail_stock'>Avail: ", product.num_instock, "</a>",
-                "</div>"
-        ].join("")
-        ); 
-        
-        // Add the product object to the row.
-        // $newInputRow.find("button.addtocart").data("product", product);
-        // $newInputRow.find("button.addtocart").data("id", product.id);
-        
-        return $ProductItem;
-    }   // function CreateProductItem(product, index)
-
  //******************************************************************************************** */ 
-    //******************************************************************/
-    // This function resets the products displayed with new products from the database
-    function initializeRows() {
-      $ProductList.empty();
-      var rowsToAdd = [];
-      for (var i = 0; i < product_list.length; i++) {
-        rowsToAdd.push(createNewRow(product_list[i]));
-      }
-      $ProductList.append(rowsToAdd);
-    }  //  function initializeRows()
-    
-    //******************************************************************/
-    // This function constructs a product-item row
-    function createNewRow(product) {
-        var $newInputRow = $(
-        [
-            "<div class='row'>",
-                "<div class='col-2'>",
-                    "<a>", product.picture, "</a>",
-                "</div>",
-                "<div class='col-3'>",
-                    "<a>", product.name, "</a>",
-                "</div>",
-                // "<div class='col-3'>",
-                //     "<a>", product.description, "</a>",
-                // "</div>",
-                "<div class='col-2 text-center'>",
-                    "<a class='avail_stock'>Avail: ", product.num_instock, "</a>",
-                "</div>",
-                "<div class='col-1'>",
-                    "<input name='add-quantity' class='add-item  form-control add-quantity' value='0' type='text' />",
-//                "<input name='add-quantity' class='add-item  form-control add-quantity' placeholder='1' value='1' type='text' />",
-                "</div>",
-                "<div class='col-2'>",
-                    "<a>@ $", product.unit_price, "</a>",
-                "</div>",
-                "<div class='col-1'>",
-                    "<button type='submit' class='btn btn-success addtocart'> Add to Cart </button>",
-                "</div>",
-            
-            "</div>"   
-
-        ].join("")
-        ); 
-        
-        // Add the product object to the row.
-        $newInputRow.find("button.addtocart").data("product", product);
-        $newInputRow.find("button.addtocart").data("id", product.id);
-        if (DebugOn) console.log("New Row ", $newInputRow);
-        return $newInputRow;
-    }   // function createNewRow(product)
       
     //******************************************************************/
     // This function grabs products from the database and updates the view
@@ -152,14 +78,9 @@ $(document).ready(function() {
         product_list = data;
         ProductIndex = 0;  // reset the index into the product array
         DisplayProducts();   
-        initializeRows();    // This is unique to my mock storefront
       });
     }  //function getProducts()
   
-//********************************************************************** */
-//  Not in production file
-//********************************************************************** */
-
 //********************************************************************** */
 //  Everything below goes into production file
 //********************************************************************** */
@@ -232,8 +153,6 @@ $(document).ready(function() {
 
     // Get the quantity requested  
     var AddQuantity = parseInt($("input.add-quantity").val()); 
-    if (DebugOn) console.log ("In AddProduct() - $(input.add-quantity').val()", $("input.add-quantity").val());
-    if (DebugOn) console.log ("In AddProduct() - AddQuantity " + AddQuantity);
     
     if (AddQuantity <= 0) {
        InfoAlert ("Uh-Oh! Something went wrong!","Product Quantity is Invalid");
@@ -241,7 +160,6 @@ $(document).ready(function() {
     }
     // make sure there is enough in stock to fullfill the order
     var InstockQuantity = CurProduct.num_instock;
-    if (DebugOn) console.log ("In AddProduct() - InstockQuantity " + InstockQuantity);
 
     if (InstockQuantity >= AddQuantity) {  // add product to the shopping cart array
         var TotalCost = parseFloat(CurProduct.unit_price) * AddQuantity;
@@ -465,21 +383,6 @@ $(document).ready(function() {
             order_total: OrderTotal,
             order: JSON.stringify(shopping_cart)
         };
-//********** For Test */
-// Customer.first_name = "Ann";
-// Customer.last_name = "Newman";
-// Customer.addr1 = "4404 Oak Knoll Dr";
-// Customer.addr2 = ""; $("#CustomerAddr2").val(),
-// Customer.city = "Plano";
-// Customer.state = "TX";
-// Customer.zip = "75093";
-// Customer.email = "ann@gmail.com";
-// Customer.comment = "My Comment";
-// Customer.status = "inprocess";
-// Customer.order_total= OrderTotal;
-// Customer.order = JSON.stringify(shopping_cart);
-// if (DebugOn) console.log ("about to post order JSON ", Customer.order);
-//********** For Test */
 
         // populate the "hidden" order summary page
         $("#customer_email").text(Customer.email);
@@ -492,8 +395,7 @@ $(document).ready(function() {
         $("#customer_zip").text(Customer.zip);
         $("#customer_comment").text(Customer.comment);
 
-        if (DebugOn) console.log ("before validateForm Customer: ", Customer);
-        
+       
         if (validateForm(Customer) == true) {
 
             if (DebugOn) console.log ("after call validateForm() data is valid ", Customer);
@@ -502,8 +404,6 @@ $(document).ready(function() {
             // and updating the total sales field.
             // Add/post the input customer data to the order database  
             
-            if (DebugOn) console.log ("after call validateForm() data is valid ", Customer);
-    
             // for each item in the shopping_cart update the product in the products table
             if (DebugOn) console.log ("shopping cart length " + shopping_cart.length);
             for (var i = 0; i < shopping_cart.length; i++) {
@@ -526,7 +426,6 @@ $(document).ready(function() {
             
                 // hide the customer Checkout modal 
                 $("#CheckoutModal").modal("hide");       
-                if (DebugOn) console.log ("Hide Checkout Modal");
 
                 // Populate and Display the order Summary Page
                 DisplayOrderSummary(PO_number, DateCreated);
@@ -547,10 +446,7 @@ $(document).ready(function() {
 
       function validateForm(CustomerData) {
 
-        if (DebugOn) {
-          console.log ("In validateForm()");
-          console.log ("Input User Data ", CustomerData);
-        }
+        if (DebugOn) console.log ("In validateForm() Input Customer Data ", CustomerData);
              
         var isValid = true;
 
@@ -690,7 +586,6 @@ $(document).ready(function() {
         if (DebugOn) console.log ("in updateProduct id: " + cur_id + " total: " + sales + " quant: ", quantity);
         var id = parseInt(cur_id);
         var total_sales = (parseFloat(sales)).toFixed(2);
-        if (DebugOn) console.log ("total_sales " + total_sales);
 
         $.post("/api/update_totalsales", {id, total_sales});
         $.post("/api/update_product_quantity", {id, quantity});
