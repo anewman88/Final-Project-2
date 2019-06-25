@@ -1,6 +1,6 @@
 body {
 
-    background-image: url("bg.png");
+    background-image: url("../img/bg.png");
     color: black;
 
 }
@@ -22,14 +22,14 @@ body {
 
 .jumbotron{
     font-family: algerian;
-    background-image: url("candle.gif");
+    background-image: url("../img/candle.gif");
     background-size: cover;
     background-repeat: no-repeat;
 	color: white;
 }
 #jumbo1{
     font-family: algerian;
-    background-image: url("candle1.gif");
+    background-image: url("../img/candle1.gif");
     background-size: 100%;
     background-repeat: no-repeat;
 	color: white;

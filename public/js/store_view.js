@@ -1,4 +1,7 @@
 var DebugOn = true;   // debug flag
+var ItemsPerPage = 8;
+var CurPage = 0;
+var ProductIndex = 0;
 
 $(document).ready(function() {
 
@@ -14,6 +17,7 @@ $(document).ready(function() {
 
     // Adding event listeners for adding a product to the shopping cart
     $(document).on("click", "button.addtocart", AddProductToCart);
+    $(document).on("click", "button.store-item", ItemClicked);
   
     //******************************************************************/
     // Get products from database when page loads and display them on the page
@@ -22,33 +26,35 @@ $(document).ready(function() {
 
     //**********************************************************************/
     function DisplayProducts() {
+
+        var firstIndex = ProductIndex;
+        var lastIndex = ProductIndex + ItemsPerPage;
+        if (lastIndex > product_list.length)
+           lastIndex = product_list.length;
+
+        // make sure there are products in the array to display
         if (product_list.length > 0) {
-
-            $ProductDisplay.empty();
-
-            var ItemsToDisplay = [];
-            ItemsToDisplay.push("<div class='row'>");  
-
-            for (var i = 0; i < product_list.length; i++) {
-                ItemsToDisplay.push(CreateProductItem(product_list[i]));
-                if (DebugOn) console.log ("ItemsToDisplay ", ItemsToDisplay);
-
-                // Check if a new row needs to be started 
-            //     var Remainder = i % 4;
-            //     if (Remainder === 0) { // end the current row
-            //         ItemsToDisplay.push("</div>");  // End the current row
-            //     }
-            //     if (i != product_list.length)  { // if more products then start a new row
-            //        ItemsToDisplay.push("<div class='row'>");  
-            //     }
-            }  // for
-            // if (Remainder != 0) { // check for end of last row 
-            //     ItemsToDisplay.push("</div>");  // End the current row
-            // }
-            ItemsToDisplay.push("</div>");  // End the current row
-            ItemsToDisplay.push("</div>");  // End the current row
             
-            $ProductDisplay.append(ItemsToDisplay);
+            // first hide all the boxes on the page
+            for(var i=0; i<ItemsPerPage; i++) {
+                var BoxId = "#box_"+i;
+                $(BoxId).hide();
+            }
+
+            // populate each product box on the page
+            CurBox=0;
+            for (var i=firstIndex; i<lastIndex; i++) {
+               var TitleStr = product_list[i].name + " <br> $" + product_list[i].unit_price;
+               $("#title_"+CurBox).text(TitleStr);
+               var AvailStr = "Available: " + product_list[i].num_instock;
+               $("#avail_"+CurBox).text(AvailStr);
+
+               // show the box
+               var BoxId = "#box_"+CurBox;
+               $(BoxId).show();
+               CurBox++;
+            }  // for
+
 
         }  // if (product_list.length > 0)
     
@@ -135,7 +141,8 @@ $(document).ready(function() {
     function getProducts() {
       $.get("/api/products", function(data) {
         product_list = data;
-        DisplayProducts();   // This is unique to my mock storefront
+        ProductIndex = 0;  // reset the index into the product array
+        DisplayProducts();   
         initializeRows();    // This is unique to my mock storefront
       });
     }  //function getProducts()
@@ -147,6 +154,63 @@ $(document).ready(function() {
 //********************************************************************** */
 //  Everything below goes into production file
 //********************************************************************** */
+    //**********************************************************************/
+    // This function inserts a new product into the shopping cart array
+    function ItemClicked(event) {
+        event.preventDefault();
+        
+        console.log ("In ItemClicked handler");
+        console.log ("this ", this);
+        console.log ("this.id", this.id);
+        
+        // Get the current product selected 
+        var CurBox = parseInt(this.id);
+
+        alert ("Clicked Box ID is: " + CurBox);
+    
+        var CurProduct = product_list[(CurPage*ItemsPerPage)+CurBox];
+
+        console.log ("Clicked on product ", CurProduct);
+
+    //************************** */    
+    
+
+    // Get the quantity requested  
+//    var AddQuantity = parseInt($("input.add-quantity").val()); 
+    var AddQuantity = 1;  // no way at this point to enter quantity
+
+    if (AddQuantity <= 0) {
+       InfoAlert ("Uh-Oh! Something went wrong!","Product Quantity is Invalid");
+       return;
+    }
+
+    // make sure there is enough in stock to fullfill the order
+    var InstockQuantity = CurProduct.num_instock;
+    if (DebugOn) console.log ("In AddProduct() - InstockQuantity " + InstockQuantity);
+
+    if (InstockQuantity >= AddQuantity) {  // add product to the shopping cart array
+        var TotalCost = parseFloat(CurProduct.unit_price) * AddQuantity;
+        // Add the selected product to the shopping cart array
+        var AddProduct = {
+            id:  CurProduct.id,
+            name: CurProduct.name,
+            description: CurProduct.description,
+            category: CurProduct.category,
+            unit_price:  CurProduct.unit_price, // should it be?  parseFloat($newPrice.val().trim()),
+            quantity: AddQuantity,
+            total_cost: TotalCost,
+            picture: CurProduct.picture,
+        };
+    
+        shopping_cart.push(AddProduct); 
+//        InfoAlert ("Item: " + CurProduct.name, " added to Shopping Cart");
+        DisplayShoppingCart();
+    }
+    else {   // Not enough quantity in stock alert an error for now
+        InfoAlert ("Uh-Oh! Something went wrong!","Not enough quantity in stock");
+    }
+    console.log ("In AddProductToCart - current shopping_cart ", shopping_cart);
+    } // 
 
     //**********************************************************************/
     // This function inserts a new product into the shopping cart array
