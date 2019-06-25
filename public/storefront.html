@@ -17,13 +17,12 @@
 
   <!-- <link rel="stylesheet" href="./css/styles.css"> -->
   <link rel="stylesheet" href="./css/style.css">
-
 </head>
 
 <body>
 
-  <!------------------- Navigation Bar --------------->
-  <nav class="navbar navbar-expand-sm bg-light">
+  <!-------------------  Site Navigation Bar --------------->
+  <nav class="navbar navbar-expand-sm bg-light sticky-top">
     <a href="/">
       <button class="btn btn-lg btn-default">
         <span class="fa fa-home"></span>
@@ -34,6 +33,8 @@
       <button class="btn btn-md btn-primary">
         <span class="fa fa-list-alt"></span> Inventory</button>
     </a>
+
+    <!-- <h4 id="clickinfo">Click on your favorite candle to add to your cart!</h4> -->
 
     <ul class="navbar-nav ml-auto">
 
@@ -54,7 +55,7 @@
       </li>
     </ul>
   </nav>
-  <!------------------- Navigation Bar --------------->
+  <!------------------- Site Navigation Bar --------------->
 
   <!-- ************************ New Stuff Here *********************************** -->
   <!-- ************************************************************************** -->
@@ -68,59 +69,86 @@
     </div>
 
   </div>   <!-- container -->
+    <!-------------------  Page Navigation Bar --------------->
+    <div class="row">
+        <!-- Category Filter - Drop Down -->
+        <div class="col-4">  
+        </div>
 
+        <!--  Header - Message to User  -->
+        <div class="col-5">
+            <header>
+                <h4>Click on your favorite candle to add it to your cart!</h4>
+            </header>
+        </div>
+
+        <!--  Page forward and backward buttons -->
+        <div class="col-3">
+            <button type="button" class="btn btn-primary" id="PageBackward"><<</button>   
+            <button type="button" class="btn btn-primary" id="PageForward">>></button>   
+        </div>
+    </div>
+
+    <!------------------- Page Navigation Bar --------------->
+  
+  
   <!--------------------------- Products --------------------------->
   <section class="store">
-      <header>
-          <h4>Click on your favorite candle to add to your cart!</h4>
-      </header>
       <main>
           <section class="item-display">
           <div class="container product-list">
 
             <div class="row">
-              <div class="col-3 pairing" id="box_0">
-                <p class="item-title" id="title_0">Title <br> $00.00</p>
-                <button class="store-item" id="0"></button>
+              <div class="col-3 pairing" id="box_0" value="0">
+                <p class="item-title" id="title_0">Title</p>
+                <p class="item-cost" id="cost_0">$00.00</p>
+                <button class="store-item" id="btn_0" value="0"></button>
                 <p class="buy-me" id="avail_0">Available: </p>
               </div>
-              <div class="col-3 pairing" id="box_1">
-                  <p class="item-title" id="title_1">Title <br> $00.00</p>
-                  <button class="store-item" id="1"></button>
+              <div class="col-3 pairing" id="box_1" value="1">
+                  <p class="item-title" id="title_1">Title</p>
+                  <p class="item-cost" id="cost_1">$00.00</p>
+                  <button class="store-item" id="btn_1" value="1"></button>
                   <p class="buy-me" id="avail_1">Available: </p>
               </div>
-              <div class="col-3 pairing" id="box_2">
-                  <p class="item-title" id="title_2">Title <br> $00.00</p>
-                  <button class="store-item" id="2"></button>
+              <div class="col-3 pairing" id="box_2" value="2">
+                  <p class="item-title" id="title_2">Title</p>
+                  <p class="item-cost" id="cost_2">$00.00</p>
+                  <button class="store-item" id="btn_2" value="2"></button>
                   <p class="buy-me" id="avail_2">Available: </p>
               </div>
-              <div class="col-3 pairing" id="box_3">
-                  <p class="item-title" id="title_3">Title <br> $00.00</p>
-                  <button class="store-item" id="3"></button>
+              <div class="col-3 pairing" id="box_3" value="3">
+                  <p class="item-title" id="title_3">Title</p>
+                  <p class="item-cost" id="cost_3">$00.00</p>
+                  <button class="store-item" id="btn_3" value="3"></button>
                   <p class="buy-me" id="avail_3">Available: </p>
               </div>
 
             </div>  <!-- Row -->
             <div class="row">
 
-              <div class="col-3 pairing" id="box_4">
-                  <p class="item-title" id="title_4">Title <br> $00.00</p>
-                  <button class="store-item" id="4"></button>
+              <div class="col-3 pairing" id="box_4" value="4">
+                  <p class="item-title" id="title_4">Title</p>
+                  <p class="item-cost" id="cost_4">$00.00</p>
+                  <button class="store-item" id="btn_4" value="4"></button>
                   <p class="buy-me" id="avail_4">Available: </p>
               </div>
-              <div class="col-3 pairing" id="box_1">
-                <p class="item-title" id="title_5">Title <br> $00.00</p>
-                <button class="store-item" id="5"></button>
+              <div class="col-3 pairing" id="box_5" value="5">
+                <p class="item-title" id="title_5">Title</p>
+                <p class="item-cost" id="cost_5">$00.00</p>
+                <button class="store-item" id="btn_5" value="5"></button>
                 <p class="buy-me" id="avail_5">Available: </p>
               </div>
-              <div class="col-3 pairing" id="box_6">
-                <p class="item-title" id="title_6">Title <br> $00.00</p>
-                <button class="store-item" id="6"></button>
+              <div class="col-3 pairing" id="box_6" value="6">
+                <p class="item-title" id="title_6">Title</p>
+                <p class="item-cost" id="cost_6">$00.00</p>
+                <button class="store-item" id="btn_6" value="6"></button>
                 <p class="buy-me" id="avail_6">Available: </p>
               </div>
-              <div class="col-3 pairing" id="box_7">
-                <p class="item-title" id="title_7">Title <br> $00.00</p>
-                <button class="store-item" id="7"></button>
+              <div class="col-3 pairing" id="box_7" value="7">
+                <p class="item-title" id="title_7">Title</p>
+                <p class="item-cost" id="cost_7">$00.00</p>
+                <button class="store-item" id="btn_7" value="7"></button>
                 <p class="buy-me" id="avail_7">Available: </p>
               </div>
 

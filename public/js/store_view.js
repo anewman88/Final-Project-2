@@ -1,6 +1,6 @@
 var DebugOn = true;   // debug flag
 var ItemsPerPage = 8;
-var CurPage = 0;
+//var CurPage = 0;
 var ProductIndex = 0;
 
 $(document).ready(function() {
@@ -18,6 +18,8 @@ $(document).ready(function() {
     // Adding event listeners for adding a product to the shopping cart
     $(document).on("click", "button.addtocart", AddProductToCart);
     $(document).on("click", "button.store-item", ItemClicked);
+    // $(document).on("click", "button.PageForward", PageForward);
+    // $(document).on("click", "button.PageBackward", PageBackward);
   
     //******************************************************************/
     // Get products from database when page loads and display them on the page
@@ -27,14 +29,15 @@ $(document).ready(function() {
     //**********************************************************************/
     function DisplayProducts() {
 
-        var firstIndex = ProductIndex;
-        var lastIndex = ProductIndex + ItemsPerPage;
-        if (lastIndex > product_list.length)
-           lastIndex = product_list.length;
-
         // make sure there are products in the array to display
         if (product_list.length > 0) {
             
+            // Determine which products in the product_list to display
+            var firstIndex = ProductIndex;
+            var lastIndex = ProductIndex + ItemsPerPage;
+            if (lastIndex >= product_list.length)
+               lastIndex = product_list.length;
+    
             // first hide all the boxes on the page
             for(var i=0; i<ItemsPerPage; i++) {
                 var BoxId = "#box_"+i;
@@ -44,10 +47,16 @@ $(document).ready(function() {
             // populate each product box on the page
             CurBox=0;
             for (var i=firstIndex; i<lastIndex; i++) {
-               var TitleStr = product_list[i].name + " <br> $" + product_list[i].unit_price;
-               $("#title_"+CurBox).text(TitleStr);
-               var AvailStr = "Available: " + product_list[i].num_instock;
-               $("#avail_"+CurBox).text(AvailStr);
+                // store the index of the product array in the value attribute of the box
+                $("#title_"+CurBox).val(i);
+                $("#btn_"+CurBox).val(i);  // store prod index in value atr of button
+                
+                var TitleStr = product_list[i].name;
+                $("#title_"+CurBox).text(TitleStr);  
+                var CostStr = "$" + product_list[i].unit_price;
+                $("#cost_"+CurBox).text(CostStr);
+                var AvailStr = "Available: " + product_list[i].num_instock;
+                $("#avail_"+CurBox).text(AvailStr);
 
                // show the box
                var BoxId = "#box_"+CurBox;
@@ -162,14 +171,12 @@ $(document).ready(function() {
         console.log ("In ItemClicked handler");
         console.log ("this ", this);
         console.log ("this.id", this.id);
+        console.log ("this.value", this.value);
         
         // Get the current product selected 
-        var CurBox = parseInt(this.id);
-
-        alert ("Clicked Box ID is: " + CurBox);
-    
-        var CurProduct = product_list[(CurPage*ItemsPerPage)+CurBox];
-
+        var CurBox = parseInt(this.value);         // get the box id
+        var CurProdIndex = parseInt(this.value);   // get the product index
+        var CurProduct = product_list[CurProdIndex];
         console.log ("Clicked on product ", CurProduct);
 
     //************************** */    
@@ -260,6 +267,33 @@ $(document).ready(function() {
     console.log ("In AddProductToCart - current shopping_cart ", shopping_cart);
     }  // function AddProductToCart(event)
  
+    $("#PageForward").click(function(){
+        // Display the next page of products by incrementing the ProductIndex 
+        // by the number of ItemsPerPage
+        ProductIndex += ItemsPerPage;
+
+        //
+        if (ProductIndex >= product_list.length) {
+           ProductIndex = 0;
+        }
+        if (DebugOn) console.log ("In PageForward new ProductIndex: ", ProductIndex);
+        DisplayProducts();
+    });
+
+    $("#PageBackward").click(function(){
+        // Display the previous page of products by decrementing the ProductIndex 
+        // by the number of ItemsPerPage
+        ProductIndex -= ItemsPerPage;
+
+        //
+        if (ProductIndex < 0) {
+           ProductIndex = product_list.length - ItemsPerPage;
+        }
+        if (DebugOn) console.log ("In PageBackward new ProductIndex: ", ProductIndex);
+
+        DisplayProducts();
+    });
+
     //*****************************************************************************************/
     //******************** Test summary page modal *********************/
     $("#TestSummaryBtn").click(function(){

@@ -61,6 +61,10 @@ body {
 
 .store-item {
     border: 1px solid gray;
+    background-image: url("../img/ProdPic.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 200px;
     height: 200px;
     font-size: 20px;
@@ -114,7 +118,7 @@ body {
 }
 
 .pairing:hover {
-    background: darkslategrey;
+    background: rgb(70, 10, 85);
     color: white;
 }
 
