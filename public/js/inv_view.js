@@ -10,12 +10,13 @@ $(document).ready(function() {
   
   // Our new products will go inside the productContainer
   var $productContainer = $(".product-container");
+
   // Adding event listeners for deleting, editing, and adding products
   $(document).on("click", "button.delete", deleteProduct);
-  $(document).on("click", ".product-item", editProduct);
-  $(document).on("keyup", ".product-item", finishEdit);
-  $(document).on("blur", ".product-item", cancelEdit);
   $(document).on("submit", "#product-form", insertProduct);
+  // $(document).on("click", ".product-item", editProduct);
+  // $(document).on("keyup", ".product-item", finishEdit);
+  // $(document).on("blur", ".product-item", cancelEdit);
 
   // Our initial products array
   var products = [];
@@ -98,6 +99,45 @@ $(document).ready(function() {
 
   // This function constructs a product-item row
   function createNewRow(product) {
+
+    var $newRow = $(
+      [
+
+          "<div class='row product-row'>",
+          "<div class='col-2'>",
+            "<p class='prod-name' type='text'>",product.name,"</p>",
+          "</div>",
+          "<div class='col-4'>",
+            "<p class='prod-description' type='text'>", product.description, "</p>",
+          "</div>",
+          "<div class='col-1'>",
+            "<p class='prod-category' type='text'>", product.category, "</p>",
+          "</div>",
+          "<div class='col-1'>",
+            "<p class='prod-instock' type='text'>", product.num_instock, "</p>",
+          "</div>",
+          "<div class='col-1'>",
+            "<p class='prod-unitprice' type='text'>$", product.unit_price, "</p>",
+          "</div>",
+          "<div class='col-1'>",
+            "<p class='prod-sales' type='text'>$", product.total_sales, "</p>",
+          "</div>",
+          "<div class='col-1'>",
+            "<p class='prod-picture' type='text'>", product.picture, "</p>",
+          "</div>",
+          "<div class='col-1'>",
+          "<input type='text' class='edit' style='display: none;'>",
+          "<button class='delete btn btn-danger'>x</button>",
+          "</div>",
+
+        "</div>"  
+      ].join("")
+      );
+      $newRow.find("button.delete").data("id", product.id);
+      $newRow.find("input.edit").css("display", "none");
+      $newRow.data("product", product);
+    
+
     var $newInputRow = $(
       [
         "<li class='list-group-item product-item'>",
@@ -115,7 +155,8 @@ $(document).ready(function() {
     $newInputRow.find("button.delete").data("id", product.id);
     $newInputRow.find("input.edit").css("display", "none");
     $newInputRow.data("product", product);
-    return $newInputRow;
+//    return $newInputRow;
+    return $newRow;
   }
 
   // This function inserts a new product into our database and then updates the view
