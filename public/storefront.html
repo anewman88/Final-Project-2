@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- ********************************************************************** -->
+<!-- * File: store_view.html                                              * -->
+<!-- * The purpose of this file is the entry point for the storefront.    * -->
+<!-- * And the modals for the Shopping Cart, Customer Info Input, Order   * -->
+<!-- * Summary, and Info Alert                                            * -->
+<!-- ********************************************************************** -->
 
 <head>
   <meta charset="UTF-8">
@@ -30,28 +36,27 @@
     </a>
 
     <ul class="navbar-nav ml-auto">
-
       <li class="nav-item">
          <!-- Button to call the View Cart Function -->
          <button type="button" class="btn btn-primary" id="ViewCartBtn">View Cart</button>   
       </li>
       <li class="nav-item">
           <button type="button" class="btn btn-primary" id="CheckOutBtn">Checkout</button>   
-        </li>
-        <li class="nav-item">
-           <a class="nav-link" href="#">Login</a>
-        </li>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#">Login</a>
+      </li>
       </li>
       <li class="nav-item">
          <a class="nav-link" href="#">Signup</a>
       </li>
-      </ul>
+    </ul>
   </nav>
-  <section class="store">
   
   <!---------------------- Jumbotron header --------------------------->
-  <!-- <div class="container"> -->
-      <div class="jumbotron jumbotron-fluid">
+  <section class="store">
+    <!-- <div class="container"> -->
+    <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="jumbo display-4 text-center" >Smelly Candle Company</h1>
         <p class="lead text-center">Git your Favorite Candles Smellier</p>
@@ -59,7 +64,7 @@
     </div>
 
     <!-------------------  Page Navigation Bar --------------->
-      <div class="row">
+    <div class="row">
         <!-- Category Filter - Drop Down -->
         <div class="col-3">  
         </div>
@@ -77,11 +82,10 @@
             <button type="button" class="btn btn-primary" id="PageForward">>></button>   
         </div>
     </div>
-
   
-  <!--------------------------- Products --------------------------->
-      <main>
-          <section class="item-display">
+  <!--------------------------- Products Display --------------------------->
+    <main>
+        <section class="item-display">
           <div class="container product-list">
 
             <div class="row">
@@ -142,105 +146,89 @@
               </div>
 
             </div>  <!-- Row -->
-            
           </div>   <!-- container -->
-          </section>
-      </main>
+        </section>
+    </main>
 
-  <!--------------------------- Footer --------------------------->
+    <!--------------------------- Footer --------------------------->
+    <!-- Footer -->
+    <footer class="page-footer font-small mdb-color lighten-3 pt-4">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
 
-           <!-- Footer -->
-           <footer class="page-footer font-small mdb-color lighten-3 pt-4">
-
-
-
-            <!-- Footer Links -->
-            <div class="container text-center text-md-left">
-              <!-- Grid row -->
-              <div class="row">
+          <!-- Grid row -->
+          <div class="row">
           
-                <!-- Grid column -->
-                <div class="col-md-5 col-lg-5 mr-auto my-md-4 my-0 mt-4 mb-1">
-          
-                  <!-- Content -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">Objective</h5>
-                    <p>Smelly Candles is a group project that uses sequelize and passport to create 
-                      a user authorized system.</p>
-                    <p>Our group decided to create a satire candle website to implement a user/administrator
-                       web app that allows a customer to place an order, while an admninistrator updates 
-                       the product inventory using encrypted passwords in mysql.</p>
-          
-                </div>
-                <!-- Grid column -->
-          
-                <hr class="clearfix w-100 d-md-none">
-          
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
-                  <!-- Links -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">Team Members</h5>
-                  <ul class="list-unstyled">
-                    <li>
-                      <p><a href="https://github.com/anewman88">Alpha</a></p>
-                    </li>
-                    <li>
-                      <p><a href="https://github.com/Leealp">Ann</a></p>
-                    </li>
-                    <li>
-                      <p><a href="https://github.com/cglerupcoding">Chris</a></p>
-                    </li>
-                    <li>
-                      <p><a href="#!">Terra</a></p>
-                    </li>
-                  </ul>
-                </div>   <!-- Grid column -->
-
-                <hr class="clearfix w-100 d-md-none">
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-4 mx-auto my-md-4 my-0 mt-4 mb-1">
-                  <!-- Contact details -->
-                  <h5 class="font-weight-bold text-uppercase mb-4">Contact Us</h5>
-                  <ul class="list-unstyled">
-                    <li>
-                      <p><i class="fas fa-home mr-3"></i> Dallas, TX 75245, US</p>
-                    </li>
-                    <li>
-                      <p><i class="fas fa-envelope mr-3"></i> smellycandlecompany@gmail.com</p>
-                    </li>
-                    <li>
-                      <p><i class="fas fa-phone mr-3"></i> 800-266-0212</p>
-                    </li>
-                  </ul>
-                </div><!-- Grid column -->
-                <hr>
-                <hr class="clearfix w-100 d-md-none">
-
-                <!-- Grid column -->
-<!-- 
-                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
-                
-                  <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
-          
-                  <a class="btn btn-outline-light btn-social mx-1" href="https://github.com/cglerupcoding/InventoryPro">
-                    <i class="fab fa-fw fa-github"></i>
-                  </a>
-                </div>   
-  -->
-              </div> <!-- Grid row -->
+            <!-- Grid column -->
+            <div class="col-md-5 col-lg-5 mr-auto my-md-4 my-0 mt-4 mb-1">
+      
+              <!-- Content -->
+              <h5 class="font-weight-bold text-uppercase mb-4">Objective</h5>
+                <p>Smelly Candles is a group project that uses sequelize and passport to create 
+                  a user authorized system.</p>
+                <p>Our group decided to create a satire candle website to implement a user/administrator
+                    web app that allows a customer to place an order, while an administrator updates 
+                    the product inventory using encrypted passwords in MySQL.</p>
+      
             </div>
-            <!-- Footer Links -->
+            <!-- Grid column -->
+      
+            <hr class="clearfix w-100 d-md-none">
+      
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+              <!-- Links -->
+              <h5 class="font-weight-bold text-uppercase mb-4">Team Members</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <p><a href="https://github.com/anewman88">Alpha</a></p>
+                </li>
+                <li>
+                  <p><a href="https://github.com/Leealp">Ann</a></p>
+                </li>
+                <li>
+                  <p><a href="https://github.com/cglerupcoding">Chris</a></p>
+                </li>
+                <li>
+                  <p><a href="#!">Terra</a></p>
+                </li>
+              </ul>
+            </div>   <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none">
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-4 mx-auto my-md-4 my-0 mt-4 mb-1">
+              <!-- Contact details -->
+              <h5 class="font-weight-bold text-uppercase mb-4">Contact Us</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <p><i class="fas fa-home mr-3"></i> Dallas, TX 75245, US</p>
+                </li>
+                <li>
+                  <p><i class="fas fa-envelope mr-3"></i> smellycandlecompany@gmail.com</p>
+                </li>
+                <li>
+                  <p><i class="fas fa-phone mr-3"></i> 800-266-0212</p>
+                </li>
+              </ul>
+            </div><!-- Grid column -->
+            <hr>
+            <hr class="clearfix w-100 d-md-none">
+
+          </div> <!-- Grid row -->
+        </div>
           
-            <!--------------------------- Copyright --------------------------->
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2019 Copyright:
-              <a href="https://github.com/cglerupcoding/InventoryPro">SMU Coding Bootcamp Team Bazooka</a>
-            </div>
-            <!-- Copyright -->
+        <!--------------------------- Copyright --------------------------->
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+            <a href="https://github.com/cglerupcoding/InventoryPro">SMU Coding Bootcamp Team Bazooka</a>
+        </div>
+        <!-- Copyright -->
           
-          </footer>
-          <!-- Footer -->
-        </section>  <!-- store -->
-      </div>   <!-- container -->
+    </footer>
+    <!-- Footer -->
+  </section>  <!-- store -->
+</div>   <!-- container -->
     
  <!-- *********************** Modals ************************ -->
   
@@ -279,17 +267,8 @@
                 <div>
                     <span class="shoppingcart-list"></span>
                 </div>
-  
                      
             </div>  <!--  modal-body -->
-<!-- 
-            <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
- -->
-<!-- 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>        
-            </div>
--->
           </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
@@ -360,10 +339,6 @@
               </div>
                    
           </div>  <!--  modal-body -->
-<!-- 
-          <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
--->
-
           <div class="modal-footer">
               <button type="submit" class="btn btn-primary" id="order-submit">
                   <i class="fa fa-check-circle" aria-hidden="true"></i> Submit
@@ -465,14 +440,6 @@
 
                      
             </div>  <!--  modal-body -->
-<!-- 
-            <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
- -->
-<!-- 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>        
-            </div>
--->
           </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
@@ -504,8 +471,6 @@
       </div> <!-- modal-dialog -->
   </div>  <!-- outer modal div -->
   <!------------------- AlertBox Modal ------------------>
-
-
 	<!-- Custom Script -->
 	<script src="js/store_view.js" type="text/javascript"></script>
 

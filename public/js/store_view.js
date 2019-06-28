@@ -1,3 +1,9 @@
+// ********************************************************************************
+// * File: store_view.js                                                          * 
+// * Javascript file for the storefront view. The purpose of this file is to      *
+// * manage the storefront including displaying products, managing the shopping   *
+// * cart, managing the checkout process                                          * 
+// ********************************************************************************
 var DebugOn = true;   // debug flag
 var ItemsPerPage = 8;
 var ProductIndex = 0;
@@ -17,15 +23,16 @@ $(document).ready(function() {
     // Adding event listeners for adding a product to the shopping cart
     $(document).on("click", "button.addtocart", AddProductToCart);
     $(document).on("click", "button.store-item", ItemClicked);
-    // $(document).on("click", "button.PageForward", PageForward);
-    // $(document).on("click", "button.PageBackward", PageBackward);
   
-    //******************************************************************/
-    // Get products from database when page loads and display them on the page
+    //************************************************************************************/
+    // Get products from product table when page loads and display them on the page
     getProducts(true);  // get the product_list and display them
     if (DebugOn) console.log ("Got product_list ", product_list);
 
-    //**********************************************************************/
+    // ********************************************************************************
+    // * Function: DisplayProducts()                                                  *
+    // * This function displays the products on the page                              *
+    // ********************************************************************************
     function DisplayProducts() {
 
         // make sure there are products in the array to display
@@ -64,17 +71,14 @@ $(document).ready(function() {
                $(BoxId).show();
                CurBox++;
             }  // for
-
-
         }  // if (product_list.length > 0)
     
     }  // DisplayProducts()  
     
- 
- //******************************************************************************************** */ 
-      
-    //******************************************************************/
-    // This function grabs products from the database and updates the view if DispProd is true
+    //*********************************************************************************
+    // * Function: getProducts()                                                      *
+    // * This function gets the products from the products table and updates the view *
+    // ********************************************************************************
     function getProducts(DispProdFlag) {
       $.get("/api/products", function(data) {
         product_list = data;
@@ -87,67 +91,61 @@ $(document).ready(function() {
       });
     }  //function getProducts()
   
-//********************************************************************** */
-//  Everything below goes into production file
-//********************************************************************** */
-    //**********************************************************************/
-    // This function inserts a new product into the shopping cart array
+    //*********************************************************************************
+    // * Function: ItemClicked(event)                                                 *
+    // * This event handler function determines which product was clicked and adds it *
+    // * to the shopping cart if enough product is available                          *
+    // ********************************************************************************
     function ItemClicked(event) {
         event.preventDefault();
         
-        console.log ("In ItemClicked handler");
-        console.log ("this ", this);
-        console.log ("this.id", this.id);
-        console.log ("this.value", this.value);
-        
         // Get the current product selected 
-        var CurBox = parseInt(this.value);         // get the box id
         var CurProdIndex = parseInt(this.value);   // get the product index
         var CurProduct = product_list[CurProdIndex];
-        console.log ("Clicked on product ", CurProduct);
+        console.log ("In ItemClicked - Clicked on product ", CurProduct);
 
-    //************************** */    
-    
-
-    // Get the quantity requested  
+        // Get the quantity requested  
 //    var AddQuantity = parseInt($("input.add-quantity").val()); 
-    var AddQuantity = 1;  // no way at this point to enter quantity
+        var AddQuantity = 1;  // no way to enter quantity on display at this point 
 
-    if (AddQuantity <= 0) {
-       InfoAlert ("Uh-Oh! Something went wrong!","Product Quantity is Invalid");
-       return;
-    }
+        if (AddQuantity <= 0) {
+            InfoAlert ("Uh-Oh! Something went wrong!","Product Quantity is Invalid");
+            return;
+        }
 
-    // make sure there is enough in stock to fullfill the order
-    var InstockQuantity = CurProduct.num_instock;
-    if (DebugOn) console.log ("In AddProduct() - InstockQuantity " + InstockQuantity);
+        // make sure there is enough in stock to fullfill the order
+        var InstockQuantity = CurProduct.num_instock;
+        if (DebugOn) console.log ("In ItemClicked() - InstockQuantity " + InstockQuantity);
 
-    if (InstockQuantity >= AddQuantity) {  // add product to the shopping cart array
-        var TotalCost = parseFloat(CurProduct.unit_price) * AddQuantity;
-        // Add the selected product to the shopping cart array
-        var AddProduct = {
-            id:  CurProduct.id,
-            name: CurProduct.name,
-            description: CurProduct.description,
-            category: CurProduct.category,
-            unit_price:  CurProduct.unit_price, // should it be?  parseFloat($newPrice.val().trim()),
-            quantity: AddQuantity,
-            total_cost: TotalCost,
-            picture: CurProduct.picture,
-        };
-    
-        shopping_cart.push(AddProduct); 
-//        InfoAlert ("Item: " + CurProduct.name, " added to Shopping Cart");
-        DisplayShoppingCart();
-    }
-    else {   // Not enough quantity in stock alert an error for now
-        InfoAlert ("Uh-Oh! Something went wrong!","Not enough quantity in stock");
-    }
-    console.log ("In AddProductToCart - current shopping_cart ", shopping_cart);
-    } // 
+        if (InstockQuantity >= AddQuantity) {  // add product to the shopping cart array
+            var TotalCost = parseFloat(CurProduct.unit_price) * AddQuantity;
+            // Add the selected product to the shopping cart array
+            var AddProduct = {
+                id:  CurProduct.id,
+                name: CurProduct.name,
+                description: CurProduct.description,
+                category: CurProduct.category,
+                unit_price:  CurProduct.unit_price, // should it be?  parseFloat($newPrice.val().trim()),
+                quantity: AddQuantity,
+                total_cost: TotalCost,
+                picture: CurProduct.picture,
+            };
+        
+            shopping_cart.push(AddProduct); 
+    //        InfoAlert ("Item: " + CurProduct.name, " added to Shopping Cart");
+            DisplayShoppingCart();
+        }
+        else {   // Not enough quantity in stock alert an error for now
+            InfoAlert ("Uh-Oh! Something went wrong!","Not enough quantity in stock");
+        }
+        console.log ("In ItemClicked - current shopping_cart ", shopping_cart);
+    } // function ItemClicked(event)
 
-    //**********************************************************************/
-    // This function inserts a new product into the shopping cart array
+    //*********************************************************************************
+    // * Function: AddProductToCart(event)                                            *
+    // * This event handler function determines which product was clicked and adds it *
+    // * to the shopping cart if enough product is available                          *
+    // ********************************************************************************
     function AddProductToCart(event) {
     event.preventDefault();
 
@@ -191,6 +189,10 @@ $(document).ready(function() {
     console.log ("In AddProductToCart - current shopping_cart ", shopping_cart);
     }  // function AddProductToCart(event)
  
+    //*********************************************************************************
+    // * Function: PageForward()                                                      *
+    // * This event handler function displays the next page of products               *
+    // ********************************************************************************
     $("#PageForward").click(function(){
         // Display the next page of products by incrementing the ProductIndex 
         // by the number of ItemsPerPage
@@ -202,8 +204,12 @@ $(document).ready(function() {
         }
         if (DebugOn) console.log ("In PageForward new ProductIndex: ", ProductIndex);
         DisplayProducts();
-    });
+    });  // $("#PageForward").click(function()
 
+    //*********************************************************************************
+    // * Function: PageBackward()                                                     *
+    // * This event handler function displays the previouis page of products          *
+    // ********************************************************************************
     $("#PageBackward").click(function(){
         // Display the previous page of products by decrementing the ProductIndex 
         // by the number of ItemsPerPage
@@ -216,7 +222,7 @@ $(document).ready(function() {
         if (DebugOn) console.log ("In PageBackward new ProductIndex: ", ProductIndex);
 
         DisplayProducts();
-    });
+    });  // $("#PageBackward").click(function()
 
     //*****************************************************************************************/
     //******************** Test summary page modal *********************/
@@ -236,23 +242,24 @@ $(document).ready(function() {
         $("#PO_number").text("1");
         $("#created").text("June 23, 2019");
         
-        
         $("#OrderSummaryModal").modal("show");
-
     });
 
-
-    //*****************************************************************************************/
-    //******************** Code for managing the view shopping cart modal *********************/
+    //*********************************************************************************
+    // * Function: ViewCartBtn()                                                      *
+    // * This event handler function displays the shopping cart [modal] when the user *
+    // * clicks the view shopping cart button                                         *
+    // ********************************************************************************
     $("#ViewCartBtn").click(function(){
         
         if (DebugOn) console.log ("View Cart Button Clicked");
-        
         DisplayShoppingCart();
-    });
+    });  // $("#ViewCartBtn").click(function()
 
-    //******************************************************************/
-    // This function gets the items from shopping_cart and displays them
+    // ********************************************************************************
+    // * Function: EmptyShoppingCart()                                                *
+    // * This function empties the shopping cart and clears the shopping cart modal   *
+    // ********************************************************************************
     function EmptyShoppingCart() {
 
         $CartList.empty();
@@ -261,9 +268,11 @@ $(document).ready(function() {
 
     }  // function EmptyShoppingCart()
 
-    //******************************************************************/
-    // This function gets the items from shopping_cart and displays them
-    // It also populates the "hidden" Order Summary page
+    // ********************************************************************************
+    // * Function: initCartRows()                                                     *
+    // * This function gets the items from shopping_cart and displays them on the     *
+    // * shopping cart modal.  It also populates the "hidden" Order Summary page      *
+    // ********************************************************************************
     function initCartRows() {
         if (DebugOn) console.log ("in initCartRows shopping_cart.length: " + shopping_cart.length);
         $CartList.empty();
@@ -301,8 +310,10 @@ $(document).ready(function() {
     }  //  function initCartRows()
 
         
-    //******************************************************************/
-    // This function constructs a product-item row in the cart
+    // ********************************************************************************
+    // * Function: createNewCartRow()                                                 *
+    // * This function constructs a product-item row in the cart                      *
+    // ********************************************************************************
     function createNewCartRow(product) {
         var $newInputRow = $(
         [
@@ -341,16 +352,22 @@ $(document).ready(function() {
         return $newInputRow;
     }   // function createNewCartRow(product)
     
-    //******************************************************************/
-    // This function gets the shopping cart from the storefront view
+    // ********************************************************************************
+    // * Function: DisplayShoppingCart()                                              *
+    // * This function displays the Shopping Cart                                     *
+    // ********************************************************************************
     function DisplayShoppingCart() {
         // Display the Cart modal 
         $("#CartModal").modal("show");
         initCartRows();
     }  //function DisplayShoppingCart()
 
-    //*****************************************************************************************/
     //******************** Code for managing the checkout process *********************/
+    //*********************************************************************************
+    // * Function: CheckOutBtn()                                                      *
+    // * This event handler function manages the checkout process when the user clicks*
+    // * the Checkout button. It displays the customer information input form         *
+    // ********************************************************************************
     $("#CheckOutBtn").click(function(){
 
         if (DebugOn) console.log ("Checkout Button Clicked");
@@ -367,8 +384,15 @@ $(document).ready(function() {
         }
     });  // $("#CheckOutBtn").click(function()
     
-    var Customer;
+    var Customer;   // input customer information
 
+    //**********************************************************************************
+    // * Function: order-submit()                                                      *
+    // * This event handler function manages the checkout process when the user clicks *
+    // * the Submit button on the customer information input page. It validates the    *
+    // * input customer data then processes the order.  It also updates the products   *
+    // * table with the new in-stock and total-sales values for each of the products   *
+    // *********************************************************************************
     $("#order-submit").on("click", function() {  
         
         if (DebugOn) console.log ("Submit Button Clicked");
@@ -401,7 +425,7 @@ $(document).ready(function() {
         $("#customer_zip").text(Customer.zip);
         $("#customer_comment").text(Customer.comment);
 
-       
+        // process the order if info is valid                
         if (validateForm(Customer) == true) {
 
             if (DebugOn) console.log ("after call validateForm() data is valid ", Customer);
@@ -452,66 +476,76 @@ $(document).ready(function() {
             
         } else {  // some part of the input for was invalid
             InfoAlert("Uh-Oh! Something went wrong!","Please fill out all fields before submitting!");
-        }
+        }     
 
+        //**********************************************************************************
+        // * Function: validateForm()                                                      *
+        // * This function verifies that the input customer data is valid                  *
+        // *********************************************************************************
+        function validateForm(CustomerData) {
 
-      function validateForm(CustomerData) {
+            if (DebugOn) console.log ("In validateForm() Input Customer Data ", CustomerData);
+                
+            var isValid = true;
 
-        if (DebugOn) console.log ("In validateForm() Input Customer Data ", CustomerData);
-             
-        var isValid = true;
+            // validate the name field
+            if ((CustomerData.first-name === "") || (CustomerData.first-name === undefined))
+            return false;
 
-        // validate the name field
-        if ((CustomerData.first-name === "") || (CustomerData.first-name === undefined))
-           return false;
+            if ((CustomerData.last-name === "") || (CustomerData.last-name === undefined))
+            return false;
 
-        if ((CustomerData.last-name === "") || (CustomerData.last-name === undefined))
-           return false;
-
-        // validate the address field
-        if ((CustomerData.addr1 === "") || (CustomerData.addr1 === undefined)) 
-           return false;
+            // validate the address field
+            if ((CustomerData.addr1 === "") || (CustomerData.addr1 === undefined)) 
+            return false;
+                        
+            // validate the city field
+            if ((CustomerData.city === "") || (CustomerData.city === undefined)) 
+            return false;
                     
-        // validate the city field
-        if ((CustomerData.city === "") || (CustomerData.city === undefined)) 
-           return false;
-                  
-        // validate the state field
-        if ((CustomerData.state === "") || (CustomerData.state === undefined)) 
-           return false;            
-                  
-        // validate the zip code field
-        if ((CustomerData.zip === "") || (CustomerData.zip === undefined)) 
-          return false;
-                  
-        return isValid;
-      }  //function validateForm()
+            // validate the state field
+            if ((CustomerData.state === "") || (CustomerData.state === undefined)) 
+            return false;            
+                    
+            // validate the zip code field
+            if ((CustomerData.zip === "") || (CustomerData.zip === undefined)) 
+            return false;
+                    
+            return isValid;
+       }  //function validateForm()
  
-      function DisplayOrderSummary(PO, DateCreated) {
+        //**********************************************************************************
+        // * Function: validateForm()                                                      *
+        // * This function verifies that the input customer data is valid                  *
+        // *********************************************************************************
+        function DisplayOrderSummary(PO, DateCreated) {
 
-        // The customer data was populated on the summary page when it was submitted
+            // The customer data was populated on the summary page when it was submitted
 
-        // Populate the Purchase Order number field
-        $("#PO_number").text(PO);
+            // Populate the Purchase Order number field
+            $("#PO_number").text(PO);
 
-        // Populate the Date field
-        $("#DateCreated").text(DateCreated);
+            // Populate the Date field
+            $("#DateCreated").text(DateCreated);
 
-        // Populate the modal with the shopping cart info
-        initSummaryRows();
+            // Populate the modal with the shopping cart info
+            initSummaryRows();
 
-        //  Show the Order Summary Modal
-        $("#OrderSummaryModal").modal("show");
+            //  Show the Order Summary Modal
+            $("#OrderSummaryModal").modal("show");
 
-      }  // function DisplayOrderSummary()
+        }  // function DisplayOrderSummary()
 
     });  //  $("#submit").on("click", function()  Submit of User Data
 
     //*****************************************************************************************/
     //******************** Code for managing the Order Summary modal *********************/
 
-    //******************************************************************/
-    // This function constructs a product-item row in the cart
+    //**********************************************************************************
+    // * Function: createNewSummaryRow()                                               *
+    // * This function creates a new product row for display on the product summary    *
+    // * page                                                                          *
+    // *********************************************************************************
     function createNewSummaryRow(product) {
         var $newInputRow = $(
         [
@@ -543,16 +577,13 @@ $(document).ready(function() {
         ].join("")
         ); 
         
-        // Add the product object to the row.
-//        $newInputRow.find("button.delete").data("product", product);
-//        $newInputRow.find("button.delete").data("id", product.id);
-
         return $newInputRow;
     }   // function createNewSummaryRow(product)
 
-    //******************************************************************/
-    // This function gets the items from shopping_cart and populates them
-    // on the "hidden" Order Summary page
+    //**********************************************************************************
+    // * Function: initSummaryRows()                                                   *
+    // * This function displays the info on the product summary page                   *
+    // *********************************************************************************
     function initSummaryRows() {
         if (DebugOn) console.log ("in initSummaryRows shopping_cart.length: " + shopping_cart.length);
         $OrderList.empty();
@@ -589,10 +620,11 @@ $(document).ready(function() {
 
     }  //  function initSummaryRows()
 
-    //********************************************************************************* */
-    //******************************************************************/
-    // This function updates the sales_total and quantity for the cur_id
-    // in the database
+    //**********************************************************************************
+    // * Function: updateProduct()                                                     *
+    // * This function updates the sales_total and quantity for the cur_id in the      *
+    // * products table                                                                *
+    // *********************************************************************************
     function updateProduct(cur_id, sales, quantity) {
         if (DebugOn) console.log ("in updateProduct id: " + cur_id + " total: " + sales + " quant: ", quantity);
         var id = parseInt(cur_id);
@@ -603,6 +635,10 @@ $(document).ready(function() {
       
     }  //function updateProduct()
 
+    //**********************************************************************************
+    // * Function: InfoAlert()                                                         *
+    // * This function displays the alert modal with the input str1 and str2           *
+    // *********************************************************************************
     function InfoAlert (str1, str2) {
         $("#AlertModal").modal("show");
         $(".alert-msg1").text(str1);

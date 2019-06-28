@@ -7,6 +7,7 @@ body {
     /* background-size: cover; */
     
 }
+
 .jumbotron{
     font-family: algerian;
     background-image: url("../img/flame.gif");
@@ -15,7 +16,6 @@ body {
     background-position: center;
 	color: white;
 }
-
 
 .container {
     width: 1200px;
@@ -67,6 +67,7 @@ body {
 .store-item:hover {
     cursor: pointer;
 }
+
 .pairing:hover {
     background: rgb(34, 71, 235);
     color: white;
@@ -75,23 +76,6 @@ body {
 .pairing > p {
     font-size: 20px;
 }
-
-
-/* receipt */
-/* 
-aside {
-    text-align: center;
-}
-
-.closing-remarks {
-    margin-top: 40px;
-    text-align: center;
-} 
-
-.final {
-    margin: 0;
-}
-*/
 
 @media (max-width: 800px) {
     .item-display {

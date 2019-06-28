@@ -30,7 +30,8 @@ require("./app/routes/order_routes.js")(app);
 console.log ("requiring htmlRoutes.js");
 require("./routes/htmlRoutes.js")(app);
 
-// Syncing our sequelize models and then starting our Express app
+// Sync the sequelize models and then starting our Express app
+// force: false --> do not drop the table
 // =============================================================
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function(err) {
